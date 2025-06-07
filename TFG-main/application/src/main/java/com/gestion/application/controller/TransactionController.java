@@ -1,3 +1,6 @@
+// ---------------------------------------------------------------------
+// TransactionController.java
+// ---------------------------------------------------------------------
 package com.gestion.application.controller;
 
 import com.gestion.application.dto.ApiResponse;
@@ -7,16 +10,13 @@ import com.gestion.application.dto.TransactionSummaryDTO;
 import com.gestion.application.service.transaction.TransactionService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;               // <--- importar
+import org.springframework.data.domain.Pageable;           // <--- importar
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PageableDefault;        // <--- importar
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Controlador para gestionar las transacciones.
- */
 @RestController
 @RequestMapping("/transactions")
 @RequiredArgsConstructor
@@ -40,20 +40,27 @@ public class TransactionController {
     return ResponseEntity.ok(new ApiResponse<>("success", list));
   }
 
-  /** GET /transactions (paginado) */
+  /** GET /transactions (paginado de resúmenes) */
   @GetMapping
   public ResponseEntity<ApiResponse<Page<TransactionSummaryDTO>>> getTransactionSummaries(
-          @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC) Pageable pageable
+          @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC)
+          Pageable pageable
   ) {
     Page<TransactionSummaryDTO> page = service.getTransactionSummaries(pageable);
     return ResponseEntity.ok(new ApiResponse<>("success", page));
   }
 
-  /** GET /transactions/visible */
+  /**
+   * MODIFICADO: GET /transactions/visible (ahora paginado)
+   * Ejemplo: /transactions/visible?page=0&size=20&sort=transactionDate,desc
+   */
   @GetMapping("/visible")
-  public ResponseEntity<ApiResponse<List<TransactionResponse>>> getVisibleTransactions() {
-    List<TransactionResponse> list = service.getVisibleTransactions();
-    return ResponseEntity.ok(new ApiResponse<>("success", list));
+  public ResponseEntity<ApiResponse<Page<TransactionResponse>>> getVisibleTransactions(
+          @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC)
+          Pageable pageable
+  ) {
+    Page<TransactionResponse> page = service.getVisibleTransactions(pageable);
+    return ResponseEntity.ok(new ApiResponse<>("success", page));
   }
 
   /** GET /transactions/patient/{id} */
@@ -92,9 +99,7 @@ public class TransactionController {
     return ResponseEntity.ok(new ApiResponse<>("success", resp));
   }
 
-  /**
-   * GET /transactions/contact/{id} (paginado)
-   */
+  /** GET /transactions/contact/{id} (paginado) */
   @GetMapping("/contact/{id}")
   public ResponseEntity<ApiResponse<Page<TransactionSummaryDTO>>> getTransactionsByContact(
           @PathVariable("id") Integer contactId,

@@ -1,3 +1,6 @@
+// ---------------------------------------------------------------------
+// TransactionService.java
+// ---------------------------------------------------------------------
 package com.gestion.application.service.transaction;
 
 import com.gestion.application.dto.TransactionRequest;
@@ -42,14 +45,13 @@ public class TransactionService {
     return createImpl.create(req);
   }
 
-  /** GET /transactions (listado sin paginar) */
+  /** GET /transactions/all (sin paginar) */
   public List<TransactionResponse> getAllTransactions() {
     return listImpl.getAllTransactions();
   }
 
-  /** GET /transactions/visible */
-  public List<TransactionResponse> getVisibleTransactions() {
-    return visibleImpl.getVisibleTransactions();
+  public Page<TransactionResponse> getVisibleTransactions(Pageable pageable) {
+    return visibleImpl.getVisibleTransactions(pageable);
   }
 
   /** GET /transactions/patient/{id} */
@@ -74,9 +76,6 @@ public class TransactionService {
 
   /**
    * GET /transactions (paginado)
-   *
-   * Devuelve un Page<TransactionSummaryDTO> con todas las transacciones,
-   * ordenadas según el Pageable (por defecto, por fecha desc.).
    */
   public Page<TransactionSummaryDTO> getTransactionSummaries(Pageable pageable) {
     return getSummariesImpl.execute(pageable);
@@ -84,23 +83,13 @@ public class TransactionService {
 
   /**
    * GET /transactions/contact/{id} (paginado)
-   *
-   * Obtiene una página de transacciones (resumidas) asociadas a un contacto específico.
-   * Si el contacto no existe, lanza ContactNotFoundException.
-   *
-   * @param contactId ID del contacto
-   * @param pageable  Parámetros de paginación (page, size, sort)
-   * @return Page<TransactionSummaryDTO>
    */
   public Page<TransactionSummaryDTO> getTransactionSummariesByContact(
           Integer contactId,
           Pageable pageable
   ) {
-    // 1) Verificar que el contacto existe (no necesariamente es paciente)
     contactRepository.findById(contactId)
             .orElseThrow(() -> new ContactNotFoundException(contactId));
-
-    // 2) Devolver página de resúmenes obtenidos por la query personalizada
     return transactionRepository.findTransactionSummariesByContactId(contactId, pageable);
   }
 }

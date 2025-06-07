@@ -1,10 +1,13 @@
+// ---------------------------------------------------------------------
+// TransactionRepository.java
+// ---------------------------------------------------------------------
 package com.gestion.application.repository;
 
 import com.gestion.application.dto.TransactionSummaryDTO;
 import com.gestion.application.model.Transaction;
 import java.util.List;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Pageable;            // <--- importar
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,12 +18,15 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
 
   List<Transaction> findByPatient_IdPatient(Integer patientId);
 
+  // Método existente que usas para el servicio sin paginar
   List<Transaction> findAllByIsVisibleTrue();
 
   /**
-   * Obtener página de transacciones visibles en formato resumido.
-   * Ahora incluye el campo idContact para que coincida con el constructor de TransactionSummaryDTO.
+   * NUEVO: paginar entidades Transaction donde isVisible = true.
    */
+  Page<Transaction> findAllByIsVisibleTrue(Pageable pageable);
+
+  // Query de resumen (ya existía): devuelve TransactionSummaryDTO paginado
   @Query("""
     SELECT new com.gestion.application.dto.TransactionSummaryDTO(
       t.idTransaction,
@@ -38,10 +44,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
   """)
   Page<TransactionSummaryDTO> findAllTransactionSummaries(Pageable pageable);
 
-  /**
-   * Obtener página de transacciones (resumidas) asociadas a un contacto específico,
-   * ordenadas por transactionDate. El Pageable controla orden y tamaño.
-   */
   @Query("""
     SELECT new com.gestion.application.dto.TransactionSummaryDTO(
       t.idTransaction,
