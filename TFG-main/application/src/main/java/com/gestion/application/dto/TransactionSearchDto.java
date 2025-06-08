@@ -1,4 +1,3 @@
-// TransactionSearchDto.java
 package com.gestion.application.dto;
 
 import java.time.LocalDate;
