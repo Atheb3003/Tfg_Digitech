@@ -22,7 +22,6 @@ public class CreateConsultationImpl {
 
   private final ConsultationRepository repo;
   private final ContactRepository contactRepo;
-  private final PatientRepository patientRepo;
   private final ConsultationTypeRepository typeRepo;
   private final ConsultationMapper mapper;
 
@@ -32,9 +31,7 @@ public class CreateConsultationImpl {
     contactRepo
         .findById(req.getContactId())
         .orElseThrow(() -> new ContactNotFoundException(req.getContactId()));
-    patientRepo
-        .findById(req.getPatientId())
-        .orElseThrow(() -> new PatientNotFoundException(req.getPatientId()));
+
     typeRepo
         .findById(req.getTypeId())
         .orElseThrow(() -> new ProtocolNotFoundException(req.getTypeId()));
