@@ -34,10 +34,7 @@ public class UpdateConsultationImpl {
         contactRepo
             .findById(req.getContactId())
             .orElseThrow(() -> new ContactNotFoundException(req.getContactId()));
-    Patient p =
-        patientRepo
-            .findById(req.getPatientId())
-            .orElseThrow(() -> new PatientNotFoundException(req.getPatientId()));
+
     ConsultationType t =
         typeRepo
             .findById(req.getTypeId())
@@ -45,7 +42,6 @@ public class UpdateConsultationImpl {
 
     // actualizar campos
     existing.setContact(c);
-    existing.setPatient(p);
     existing.setType(t);
     existing.setFollicularUnits(req.getFollicularUnits());
     existing.setInsertionZones(req.getInsertionZones());

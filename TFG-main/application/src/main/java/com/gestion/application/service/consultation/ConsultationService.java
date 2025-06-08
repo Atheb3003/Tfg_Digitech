@@ -15,7 +15,7 @@ public class ConsultationService {
   private final CreateConsultationImpl createImpl;
   private final GetAllConsultationsImpl allImpl;
   private final GetVisibleConsultationsImpl visibleImpl;
-  private final GetConsultationsByPatientImpl byPatientImpl;
+//  private final GetConsultationsByPatientImpl byPatientImpl;
   private final DeleteConsultationImpl deleteImpl;
   private final MakeConsultationVisibleImpl showImpl;
   private final MakeConsultationInvisibleImpl hideImpl;
@@ -36,9 +36,9 @@ public class ConsultationService {
     return visibleImpl.getVisible();
   }
 
-  public List<ConsultationResponse> getByPatient(Integer patientId) {
-    return byPatientImpl.getByPatient(patientId);
-  }
+//  public List<ConsultationResponse> getByPatient(Integer patientId) {
+//    return byPatientImpl.getByPatient(patientId);
+//  }
 
   public void delete(Integer id) {
     deleteImpl.delete(id);

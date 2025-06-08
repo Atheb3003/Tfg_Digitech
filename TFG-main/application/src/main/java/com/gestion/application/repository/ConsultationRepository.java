@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface ConsultationRepository extends JpaRepository<Consultation, Integer> {
   List<Consultation> findAllByIsVisibleTrue();
 
-  List<Consultation> findByPatient_IdPatient(Integer patientId);
-
   List<Consultation> findByContact_IdContact(Integer contactId);
 
   List<Consultation> findByType_IdType(Integer typeId);

@@ -14,41 +14,43 @@ public class ConsultationMapper {
   /** Convierte DTO de petición a entidad */
   public Consultation toEntity(ConsultationRequest dto) {
     Consultation c = new Consultation();
+
     // Asociar entidades por ID
     Contact contact = new Contact();
     contact.setIdContact(dto.getContactId());
-    Patient patient = new Patient();
-    patient.setIdPatient(dto.getPatientId());
+
+
     ConsultationType type = new ConsultationType();
     type.setIdType(dto.getTypeId());
 
-    c.setContact(contact);
-    c.setPatient(patient);
+    c.setContact(contact);;
     c.setType(type);
     c.setFollicularUnits(dto.getFollicularUnits());
     c.setInsertionZones(dto.getInsertionZones());
     c.setObservations(dto.getObservations());
     c.setTreatmentDone(dto.getTreatmentDone());
+    c.setSurgeryReserved(dto.getSurgeryReserved()); // 👈 NUEVO
     c.setConsultationDate(dto.getConsultationDate());
     c.setIsVisible(true);
+
     return c;
   }
 
-  /** Convierte entidad a DTO de respuesta, incluyendo IDType, nombre del contacto y nombre del tipo */
+  /** Convierte entidad a DTO de respuesta */
   public ConsultationResponse toResponse(Consultation entity) {
     ConsultationResponse dto = new ConsultationResponse();
+
     dto.setIdConsultation(entity.getIdConsultation());
     dto.setContactId(entity.getContact().getIdContact());
-    dto.setPatientId(entity.getPatient().getIdPatient());
     dto.setFollicularUnits(entity.getFollicularUnits());
     dto.setInsertionZones(entity.getInsertionZones());
     dto.setObservations(entity.getObservations());
     dto.setTreatmentDone(entity.getTreatmentDone());
+    dto.setSurgeryReserved(entity.getSurgeryReserved()); // 👈 NUEVO
     dto.setConsultationDate(entity.getConsultationDate());
     dto.setIsVisible(entity.getIsVisible());
     dto.setIdType(entity.getType().getIdType());
-    dto.setNombreContacto(
-            entity.getContact().getName() + " " + entity.getContact().getSurname());
+    dto.setNombreContacto(entity.getContact().getName() + " " + entity.getContact().getSurname());
     dto.setType(entity.getType().getTypeName());
 
     return dto;

@@ -18,10 +18,6 @@ public class Consultation {
   private Contact contact;
 
   @ManyToOne
-  @JoinColumn(name = "id_patient")
-  private Patient patient;
-
-  @ManyToOne
   @JoinColumn(name = "id_type")
   private ConsultationType type;
 
@@ -34,6 +30,9 @@ public class Consultation {
   private String observations;
 
   private Boolean treatmentDone;
+
+  @Column(name = "surgery_reserved")
+  private Boolean surgeryReserved;
 
   private LocalDateTime consultationDate;
 

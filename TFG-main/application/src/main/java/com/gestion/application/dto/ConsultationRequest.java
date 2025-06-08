@@ -9,9 +9,6 @@ public class ConsultationRequest {
   @JsonProperty("id_contact")
   private Integer contactId;
 
-  @JsonProperty("id_patient")
-  private Integer patientId;
-
   @JsonProperty("id_type")
   private Integer typeId;
 
@@ -25,6 +22,9 @@ public class ConsultationRequest {
 
   @JsonProperty("treatment_done")
   private Boolean treatmentDone;
+
+  @JsonProperty("surgery_reserved")
+  private Boolean surgeryReserved;
 
   @JsonProperty("consultation_date")
   private LocalDateTime consultationDate;
