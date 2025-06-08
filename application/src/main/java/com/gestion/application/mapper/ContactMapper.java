@@ -44,6 +44,7 @@ public class ContactMapper {
     dto.setEmail(contact.getEmail());
     dto.setObservations(contact.getObservations());
     dto.setIsVisible(contact.getIsVisible());
+    dto.setIdContactString(contact.getIdContactString());
     return dto;
   }
 }

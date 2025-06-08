@@ -6,7 +6,6 @@ import com.gestion.application.dto.ContactToPatientResponse;
 import com.gestion.application.mapper.ContactMapper;
 import com.gestion.application.model.Contact;
 import com.gestion.application.service.contact.impl.*;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,7 +54,7 @@ public class ContactService {
   }
 
   /** GET /contacts/search/{term} */
-  public List<ContactResponse> searchContacts(String term) {
-    return searchImpl.search(term);
+  public Page<ContactResponse> searchContacts(String term, Pageable pageable) {
+    return searchImpl.search(term, pageable);
   }
 }

@@ -32,7 +32,7 @@ public class GroupPhotosServiceImpl {
   private final PhotoRepository photoRepository;
 
   public GroupPhotos createGroupWithPhotos(CreateGroupPhotosRequest request, MultipartFile[] files)
-      throws IOException {
+          throws IOException {
     GroupPhotos group = new GroupPhotos();
 
     group.setTitle(request.getTitle());
@@ -42,32 +42,32 @@ public class GroupPhotosServiceImpl {
     group.setIsVisible(request.getIsVisible() != null ? request.getIsVisible() : Boolean.TRUE);
 
     group.setContact(
-        contactRepository
-            .findById(request.getContactId())
-            .orElseThrow(() -> new RuntimeException("Contacto no encontrado")));
+            contactRepository
+                    .findById(request.getContactId())
+                    .orElseThrow(() -> new RuntimeException("Contacto no encontrado")));
 
     if (request.getConsultationId() != null) {
       group.setConsultation(
-          consultationRepository
-              .findById(request.getConsultationId())
-              .orElseThrow(() -> new RuntimeException("Consulta no encontrada")));
+              consultationRepository
+                      .findById(request.getConsultationId())
+                      .orElseThrow(() -> new RuntimeException("Consulta no encontrada")));
     }
 
     if (request.getRevisionId() != null) {
       group.setRevision(
-          revisionRepository
-              .findById(request.getRevisionId())
-              .orElseThrow(() -> new RuntimeException("Revisión no encontrada")));
+              revisionRepository
+                      .findById(request.getRevisionId())
+                      .orElseThrow(() -> new RuntimeException("Revisión no encontrada")));
     }
 
     GroupPhotos savedGroup = groupPhotosRepository.save(group);
 
     Path folder =
-        Paths.get(
-            System.getProperty("user.dir"),
-            "uploads",
-            "photos",
-            "group-" + savedGroup.getIdGroupPhotos());
+            Paths.get(
+                    System.getProperty("user.dir"),
+                    "uploads",
+                    "photos",
+                    "group-" + savedGroup.getIdGroupPhotos());
     Files.createDirectories(folder);
 
     List<Photo> photos = new ArrayList<>();
@@ -91,9 +91,9 @@ public class GroupPhotosServiceImpl {
 
   public GroupPhotosResponse getGroupPhotos(Integer groupId) {
     GroupPhotos group =
-        groupPhotosRepository
-            .findById(groupId)
-            .orElseThrow(() -> new GroupPhotosNotFoundException(groupId));
+            groupPhotosRepository
+                    .findById(groupId)
+                    .orElseThrow(() -> new GroupPhotosNotFoundException(groupId));
 
     GroupPhotosResponse response = new GroupPhotosResponse();
     response.setGroupId(group.getIdGroupPhotos());
@@ -103,13 +103,15 @@ public class GroupPhotosServiceImpl {
 
     response.setContactId(group.getContact() != null ? group.getContact().getIdContact() : null);
     response.setConsultationId(
-        group.getConsultation() != null ? group.getConsultation().getIdConsultation() : null);
+            group.getConsultation() != null ? group.getConsultation().getIdConsultation() : null);
+
+    // Aquí usamos getIdRevison() (con 'e') en lugar de getIdRevision()
     response.setRevisionId(
-        group.getRevision() != null ? group.getRevision().getIdRevision() : null);
+            group.getRevision() != null ? group.getRevision().getIdRevision() : null);
 
     String baseUrl = "http://localhost:8080/";
     List<String> photoUrls =
-        group.getPhotos().stream().map(photo -> baseUrl + photo.getFileRoute()).toList();
+            group.getPhotos().stream().map(photo -> baseUrl + photo.getFileRoute()).toList();
     response.setPhotos(photoUrls);
 
     return response;
@@ -125,41 +127,43 @@ public class GroupPhotosServiceImpl {
     String baseUrl = "http://localhost:8080/";
 
     return groups.stream()
-        .map(
-            group -> {
-              GroupPhotosResponse response = new GroupPhotosResponse();
-              response.setGroupId(group.getIdGroupPhotos());
-              response.setTitle(group.getTitle());
-              response.setDescription(group.getDescription());
-              response.setCreationDate(group.getCreationDate());
+            .map(
+                    group -> {
+                      GroupPhotosResponse response = new GroupPhotosResponse();
+                      response.setGroupId(group.getIdGroupPhotos());
+                      response.setTitle(group.getTitle());
+                      response.setDescription(group.getDescription());
+                      response.setCreationDate(group.getCreationDate());
 
-              response.setContactId(
-                  group.getContact() != null ? group.getContact().getIdContact() : null);
-              response.setConsultationId(
-                  group.getConsultation() != null
-                      ? group.getConsultation().getIdConsultation()
-                      : null);
-              response.setRevisionId(
-                  group.getRevision() != null ? group.getRevision().getIdRevision() : null);
+                      response.setContactId(
+                              group.getContact() != null ? group.getContact().getIdContact() : null);
+                      response.setConsultationId(
+                              group.getConsultation() != null
+                                      ? group.getConsultation().getIdConsultation()
+                                      : null);
 
-              List<String> photoUrls =
-                  group.getPhotos().stream().map(photo -> baseUrl + photo.getFileRoute()).toList();
+                      // También corregido aquí: getIdRevison()
+                      response.setRevisionId(
+                              group.getRevision() != null ? group.getRevision().getIdRevision() : null);
 
-              response.setPhotos(photoUrls);
-              return response;
-            })
-        .toList();
+                      List<String> photoUrls =
+                              group.getPhotos().stream().map(photo -> baseUrl + photo.getFileRoute()).toList();
+
+                      response.setPhotos(photoUrls);
+                      return response;
+                    })
+            .toList();
   }
 
   public void deleteGroupPhotos(Integer groupId) throws IOException {
     GroupPhotos group =
-        groupPhotosRepository
-            .findById(groupId)
-            .orElseThrow(() -> new GroupPhotosNotFoundException(groupId));
+            groupPhotosRepository
+                    .findById(groupId)
+                    .orElseThrow(() -> new GroupPhotosNotFoundException(groupId));
 
     // Eliminar fotos físicas del disco
     Path folder =
-        Paths.get(System.getProperty("user.dir"), "uploads", "photos", "group-" + groupId);
+            Paths.get(System.getProperty("user.dir"), "uploads", "photos", "group-" + groupId);
 
     if (Files.exists(folder)) {
       Files.walk(folder).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);

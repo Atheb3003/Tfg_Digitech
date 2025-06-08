@@ -294,4 +294,13 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .body(new ErrorDetails(500, "Internal Server Error", ex.getMessage(), req.getRequestURI()));
   }
+
+  @ExceptionHandler(RevisionNotFoundException.class)
+  public ResponseEntity<ErrorDetails> handleRevisionNotFound(
+          RevisionNotFoundException ex, HttpServletRequest req) {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(new ErrorDetails(404, "Not Found", ex.getMessage(), req.getRequestURI()));
+  }
+
+
 }

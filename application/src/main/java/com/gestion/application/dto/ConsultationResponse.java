@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import lombok.Data;
 
+/** DTO de respuesta para la entidad Consultation */
 @Data
 public class ConsultationResponse {
   @JsonProperty("id_consultation")
@@ -12,11 +13,8 @@ public class ConsultationResponse {
   @JsonProperty("id_contact")
   private Integer contactId;
 
-  @JsonProperty("id_patient")
-  private Integer patientId;
-
-  @JsonProperty("id_type")
-  private Integer typeId;
+  @JsonProperty("IDType")
+  private Integer idType;
 
   @JsonProperty("follicular_units")
   private Integer follicularUnits;
@@ -29,9 +27,18 @@ public class ConsultationResponse {
   @JsonProperty("treatment_done")
   private Boolean treatmentDone;
 
+  @JsonProperty("surgery_reserved")
+  private Boolean surgeryReserved;
+
   @JsonProperty("consultation_date")
   private LocalDateTime consultationDate;
 
   @JsonProperty("is_visible")
   private Boolean isVisible;
+
+  @JsonProperty("nombre_contacto")
+  private String nombreContacto;
+
+  @JsonProperty("type")
+  private String type;
 }

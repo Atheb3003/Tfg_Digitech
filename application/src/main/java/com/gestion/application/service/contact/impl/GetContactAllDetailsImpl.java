@@ -26,6 +26,9 @@ public class GetContactAllDetailsImpl {
     ContactResponse response = new ContactResponse();
     response.setIdContact(contact.getIdContact());
     response.setName(contact.getName());
+    response.setTelephoneNumber2(contact.getTelephoneNumber2());
+    response.setDirection(contact.getDirection());
+    response.setBirthDate(contact.getBirthDate());
     response.setSurname(contact.getSurname());
     response.setEmail(contact.getEmail());
     response.setTelephoneNumber1(contact.getTelephoneNumber1());
@@ -35,6 +38,7 @@ public class GetContactAllDetailsImpl {
     response.setTown(contact.getTown());
     response.setOccupation(contact.getOccupation());
     response.setObservations(contact.getObservations());
+    response.setIdContactString(contact.getIdContactString());
     return response;
   }
 }

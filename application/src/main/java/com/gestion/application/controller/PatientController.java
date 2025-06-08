@@ -38,7 +38,14 @@ public class PatientController {
   /** GET /patients/{id} */
   @GetMapping("/{id}")
   public ResponseEntity<ApiResponse<PatientResponse>> getPatientById(@PathVariable Integer id) {
-    PatientResponse dto = patientService.getPatientById(id);
+    PatientResponse dto = patientService.getPatient(id);
     return ResponseEntity.ok(new ApiResponse<>("success", dto));
+  }
+
+  @GetMapping("/search/{term}")
+  public ResponseEntity<ApiResponse<Page<ContactResponse>>> searchContacts(
+      @PathVariable String term, Pageable pageable) {
+    Page<ContactResponse> results = patientService.searchContacts(term, pageable);
+    return ResponseEntity.ok(new ApiResponse<>("success", results));
   }
 }

@@ -1,25 +1,32 @@
 package com.gestion.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import lombok.Data;
 
 @Data
 public class TransactionDetailResponse {
 
-  @JsonProperty("id_detail")
-  private Integer idDetail;
+  @JsonProperty("idTransaction")
+  private Integer idTransaction;
 
-  @JsonProperty("id_transaction")
-  private Integer transactionId;
+  @JsonProperty("transactionDate")
+  private LocalDate transactionDate;
 
-  @JsonProperty("id_product")
-  private Integer productId;
+  private Double amount;
 
-  private Integer quantity;
+  @JsonProperty("paymentMethod")
+  private String paymentMethod;
 
-  private BigDecimal price;
+  @JsonProperty("idPatient")
+  private Integer idPatient;
 
-  @JsonProperty("is_visible")
-  private Boolean isVisible;
+  @JsonProperty("fullName")
+  private String fullName;
+
+  @JsonProperty("idContact")
+  private Integer idContact;
+
+  @JsonProperty("productType")
+  private String productType;
 }

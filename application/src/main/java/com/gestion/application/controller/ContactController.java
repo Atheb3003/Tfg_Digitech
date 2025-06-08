@@ -7,7 +7,6 @@ import com.gestion.application.dto.SuccessfulDeleteResponse;
 import com.gestion.application.mapper.ContactMapper;
 import com.gestion.application.model.Contact;
 import com.gestion.application.service.contact.ContactService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,9 +64,9 @@ public class ContactController {
   }
 
   @GetMapping("/search/{term}")
-  public ResponseEntity<ApiResponse<List<ContactResponse>>> searchContacts(
-      @PathVariable String term) {
-    List<ContactResponse> results = service.searchContacts(term);
+  public ResponseEntity<ApiResponse<Page<ContactResponse>>> searchContacts(
+      @PathVariable String term, Pageable pageable) {
+    Page<ContactResponse> results = service.searchContacts(term, pageable);
     return ResponseEntity.ok(new ApiResponse<>("success", results));
   }
 }

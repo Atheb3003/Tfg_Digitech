@@ -3,21 +3,26 @@ package com.gestion.application.mapper;
 import com.gestion.application.dto.ProductRequest;
 import com.gestion.application.dto.ProductResponse;
 import com.gestion.application.model.Product;
+import com.gestion.application.model.ProductType;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper {
 
-  /** Pasa del DTO de petición a la entidad */
   public Product toEntity(ProductRequest dto) {
     Product p = new Product();
     p.setName(dto.getName());
     p.setDescription(dto.getDescription());
     p.setPrice(dto.getPrice());
+
+    if (dto.getIdProductType() != null) {
+      ProductType pt = new ProductType();
+      pt.setIdProductType(dto.getIdProductType());
+      p.setProductType(pt);
+    }
     return p;
   }
 
-  /** Pasa de la entidad al DTO de respuesta */
   public ProductResponse toResponse(Product e) {
     ProductResponse r = new ProductResponse();
     r.setIdProduct(e.getIdProduct());
@@ -26,8 +31,12 @@ public class ProductMapper {
     r.setPrice(e.getPrice());
     r.setCreationDate(e.getCreationDate());
     r.setUpdateDate(e.getUpdateDate());
-    r.setIdProductType(e.getProductType() != null ? e.getProductType().getIdProductType() : null);
     r.setIsVisible(e.getIsVisible());
+
+    if (e.getProductType() != null) {
+      r.setProductTypeId(e.getProductType().getIdProductType());
+      r.setProductType(e.getProductType().getTypeProduct());
+    }
     return r;
   }
 }

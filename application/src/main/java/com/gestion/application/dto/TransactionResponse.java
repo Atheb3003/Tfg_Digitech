@@ -1,6 +1,7 @@
 package com.gestion.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gestion.application.model.PaymentMethod;
 import java.time.LocalDate;
 import lombok.Data;
 
@@ -15,6 +16,9 @@ public class TransactionResponse {
   private Double amount;
 
   private String description;
+
+  @JsonProperty("payment_method")
+  private PaymentMethod paymentMethod;
 
   @JsonProperty("is_visible")
   private Boolean isVisible;

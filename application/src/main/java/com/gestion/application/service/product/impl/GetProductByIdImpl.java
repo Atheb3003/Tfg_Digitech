@@ -9,7 +9,6 @@ import com.gestion.application.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/** Lógica para obtener un producto por su ID */
 @Service
 @RequiredArgsConstructor
 public class GetProductByIdImpl {
@@ -19,11 +18,15 @@ public class GetProductByIdImpl {
 
   public ProductResponse getById(Integer id) {
     try {
-      Product p = repository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+      Product p = repository
+              .findById(id)
+              .orElseThrow(() -> new ProductNotFoundException(id));
       return mapper.toResponse(p);
     } catch (ProductNotFoundException ex) {
+
       throw ex;
     } catch (Exception ex) {
+
       throw new ProductSearchException();
     }
   }

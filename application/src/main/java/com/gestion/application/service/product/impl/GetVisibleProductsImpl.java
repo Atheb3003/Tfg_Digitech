@@ -9,7 +9,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/** Lógica para listar sólo productos visibles */
 @Service
 @RequiredArgsConstructor
 public class GetVisibleProductsImpl {

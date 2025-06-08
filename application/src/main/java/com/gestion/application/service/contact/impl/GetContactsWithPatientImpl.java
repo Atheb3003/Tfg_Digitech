@@ -17,7 +17,7 @@ public class GetContactsWithPatientImpl {
 
   public Page<ContactResponse> getContactsWithPatient(Pageable pageable) {
     return contactRepository
-        .findAllWithPatient(pageable)
-        .map(contactMapper::toResponse); // Page.map lo hace por ti
+        .findAllWithPatientOrderByIdDesc(pageable)
+        .map(contactMapper::toResponse);
   }
 }

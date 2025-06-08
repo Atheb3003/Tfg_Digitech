@@ -34,4 +34,8 @@ public class ContactResponse {
 
   @JsonProperty("is_visible")
   private Boolean isVisible;
+
+  // Nuevo campo idContactString
+  @JsonProperty("id_contact_string")
+  private String idContactString;
 }

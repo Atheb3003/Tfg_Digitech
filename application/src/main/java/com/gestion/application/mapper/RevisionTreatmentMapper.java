@@ -13,6 +13,7 @@ public class RevisionTreatmentMapper {
   public RevisionTreatment toEntity(RevisionTreatmentRequest dto) {
     RevisionTreatment rt = new RevisionTreatment();
     Revision r = new Revision();
+    // Usar setIdRevison, no setIdRevision
     r.setIdRevision(dto.getRevisionId());
     Product p = new Product();
     p.setIdProduct(dto.getProductId());
@@ -24,6 +25,7 @@ public class RevisionTreatmentMapper {
   public RevisionTreatmentResponse toResponse(RevisionTreatment entity) {
     RevisionTreatmentResponse dto = new RevisionTreatmentResponse();
     dto.setId(entity.getId());
+    // Usar getIdRevison, no getIdRevision
     dto.setRevisionId(entity.getRevision().getIdRevision());
     dto.setProductId(entity.getProduct().getIdProduct());
     return dto;

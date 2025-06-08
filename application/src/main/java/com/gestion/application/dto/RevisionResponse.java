@@ -1,17 +1,22 @@
 package com.gestion.application.dto;
 
-import java.time.LocalDate;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+import java.time.LocalDate;
+
+/**
+ * DTO que se devuelve al cliente con los datos de una Revision.
+ */
+@Getter
+@Setter
 public class RevisionResponse {
   private Integer idRevision;
-  private Integer idPatient;
-  private String patientName;
+  private Integer idContact;
   private Integer idType;
-  private String typeName;
-  private Integer idProtocol;
+  private Integer idProtocol;    // puede ser null
   private String observations;
   private LocalDate revisionDate;
+  private Integer idPatient;     // puede ser null
   private Boolean isVisible;
 }

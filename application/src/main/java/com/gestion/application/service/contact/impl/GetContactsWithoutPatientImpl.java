@@ -16,6 +16,8 @@ public class GetContactsWithoutPatientImpl {
   private final ContactMapper contactMapper;
 
   public Page<ContactResponse> getContactsWithoutPatient(Pageable pageable) {
-    return contactRepository.findAllWithoutPatient(pageable).map(contactMapper::toResponse);
+    return contactRepository
+        .findAllWithoutPatientOrderByIdDesc(pageable)
+        .map(contactMapper::toResponse);
   }
 }

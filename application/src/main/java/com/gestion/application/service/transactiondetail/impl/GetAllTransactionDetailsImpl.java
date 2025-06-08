@@ -16,6 +16,9 @@ public class GetAllTransactionDetailsImpl {
   private final TransactionDetailMapper mapper;
 
   public List<TransactionDetailResponse> getAll() {
-    return detailRepo.findAll().stream().map(mapper::toResponse).collect(Collectors.toList());
+    return detailRepo.findAll()
+            .stream()
+            .map(mapper::toResponse)
+            .collect(Collectors.toList());
   }
 }

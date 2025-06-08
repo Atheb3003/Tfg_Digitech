@@ -20,6 +20,10 @@ public class Transaction {
   @Column(columnDefinition = "TEXT")
   private String description;
 
+  @Enumerated(EnumType.STRING)
+  @Column(name = "payment_method", nullable = false)
+  private PaymentMethod paymentMethod;
+
   private Boolean isVisible;
 
   @ManyToOne

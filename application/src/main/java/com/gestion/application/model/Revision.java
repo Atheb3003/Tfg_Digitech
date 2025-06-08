@@ -1,35 +1,43 @@
 package com.gestion.application.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
-import lombok.Data;
 
 @Entity
 @Table(name = "revision")
-@Data
+@Getter
+@Setter
 public class Revision {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id_revision")
   private Integer idRevision;
 
-  @ManyToOne
-  @JoinColumn(name = "id_patient", nullable = false)
-  private Patient patient;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "id_contact", nullable = false)
+  private Contact contact;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "id_type", nullable = false)
   private RevisionType type;
 
-  @ManyToOne
-  @JoinColumn(name = "id_protocol", nullable = false)
-  private Protocol protocol;
-
-  @Column(columnDefinition = "TEXT")
+  @Column(name = "observations", nullable = false, length = 1000)
   private String observations;
 
+  @Column(name = "revision_date", nullable = false)
   private LocalDate revisionDate;
 
-  @Column(name = "is_visible")
-  private Boolean isVisible = true;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "id_protocol")
+  private Protocol protocol;
+
+  @Column(name = "id_patient", nullable = true)
+    private Integer idPatient;
+
+  @Column(name = "is_visible", nullable = false)
+  private Boolean isVisible;
 }
