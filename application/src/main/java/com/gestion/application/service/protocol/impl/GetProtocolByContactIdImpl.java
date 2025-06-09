@@ -16,31 +16,34 @@ public class GetProtocolByContactIdImpl {
 
   private final ProtocolRepository protocolRepository;
 
-  public ProtocolResponse getProtocolByContactId(Integer contactId) {
-    Protocol protocol =
-        protocolRepository
-            .findByContact_IdContact(contactId)
-            .orElseThrow(() -> new ProtocolNotFoundException(contactId));
+  public List<ProtocolResponse> getProtocolByContactId(Integer contactId) {
+    List<Protocol> protocols = protocolRepository.findAllByContact_IdContact(contactId);
 
-    List<ProtocolTreatmentResponse> treatmentResponses =
-        protocol.getTreatments().stream()
-            .map(
-                t ->
-                    new ProtocolTreatmentResponse(
-                        t.getId(),
-                        t.getProduct().getIdProduct(),
-                        t.getProduct().getName(),
-                        BigDecimal.valueOf(t.getProduct().getPrice()),
-                        t.getIsFinished()))
-            .toList();
+    if (protocols.isEmpty()) {
+      throw new ProtocolNotFoundException(contactId);
+    }
 
-    ProtocolResponse response = new ProtocolResponse();
-    response.setIdProtocol(protocol.getIdProtocol());
-    response.setDescription(protocol.getDescription());
-    response.setPrice(protocol.getPrice());
-    response.setIsFinished(protocol.getIsFinished());
-    response.setTreatments(treatmentResponses);
+    return protocols.stream().map(protocol -> {
+      List<ProtocolTreatmentResponse> treatmentResponses = protocol.getTreatments().stream()
+              .map(t -> new ProtocolTreatmentResponse(
+                      t.getId(),
+                      t.getProduct().getIdProduct(),
+                      t.getProduct().getName(),
+                      BigDecimal.valueOf(t.getProduct().getPrice()),
+                      t.getIsPaid(),
+                      t.getIsFinished()
+              ))
+              .toList();
 
-    return response;
+      ProtocolResponse response = new ProtocolResponse();
+      response.setIdProtocol(protocol.getIdProtocol());
+      response.setDescription(protocol.getDescription());
+      response.setPrice(protocol.getPrice());
+      response.setIsFinished(protocol.getIsFinished());
+      response.setTreatments(treatmentResponses);
+
+      return response;
+    }).toList();
   }
+
 }

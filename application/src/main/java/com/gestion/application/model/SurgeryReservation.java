@@ -21,8 +21,9 @@ public class SurgeryReservation {
   private Integer follicularUnits;
   private String surgicalTechnique;
   private LocalDate estimatedDate;
-  private Boolean national;
-  private BigDecimal deposit;
+  private Boolean national; // si es nacional o internacional
+  private BigDecimal deposit; //
+  // crear otro que sea DineroRestante
   private BigDecimal surgeryPrice;
   private Boolean isVisible;
 

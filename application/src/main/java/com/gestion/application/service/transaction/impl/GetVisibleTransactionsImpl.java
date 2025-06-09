@@ -12,13 +12,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GetVisibleTransactionsImpl {
 
-  private final TransactionRepository txRepo;
   private final TransactionMapper mapper;
+  private final TransactionRepository transactionRepository;
 
 
   public Page<TransactionResponse> getVisibleTransactions(Pageable pageable) {
-    return txRepo.findAllByIsVisibleTrue(pageable)
-            .map(mapper::toResponse);
+    return transactionRepository.findAllVisibleTransactions(pageable);
   }
 
 }

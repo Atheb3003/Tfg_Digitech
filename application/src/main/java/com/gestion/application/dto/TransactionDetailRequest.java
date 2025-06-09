@@ -16,4 +16,10 @@ public class TransactionDetailRequest {
   private Integer quantity;
 
   private BigDecimal price;
+
+  @JsonProperty("id_protocol_treatment")
+  private Integer protocolTreatmentId;
+
+  @JsonProperty("id_surgery_reservation")
+  private Integer surgeryReservationId;
 }

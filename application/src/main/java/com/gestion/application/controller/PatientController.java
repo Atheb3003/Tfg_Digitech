@@ -48,4 +48,13 @@ public class PatientController {
     Page<ContactResponse> results = patientService.searchContacts(term, pageable);
     return ResponseEntity.ok(new ApiResponse<>("success", results));
   }
+
+  @GetMapping("/by-contact/{contactId}")
+  public ResponseEntity<?> getPatientIdByContact(@PathVariable Integer contactId) {
+    return patientService.getPatientIdByContact(contactId)
+            .<ResponseEntity<?>>map(id ->
+                    ResponseEntity.ok(new ApiResponse<>("found", id))
+            )
+            .orElseGet(() -> ResponseEntity.noContent().build());
+  }
 }

@@ -30,11 +30,12 @@ public class ProtocolController {
   }
 
   @GetMapping("/contact/{contactId}")
-  public ResponseEntity<ApiResponse<ProtocolResponse>> getProtocolByContact(
-      @PathVariable Integer contactId) {
-    ProtocolResponse response = protocolService.getProtocolByContactId(contactId);
+  public ResponseEntity<ApiResponse<List<ProtocolResponse>>> getProtocolByContact(
+          @PathVariable Integer contactId) {
+    List<ProtocolResponse> response = protocolService.getProtocolByContactId(contactId);
     return ResponseEntity.ok(new ApiResponse<>("success", response));
   }
+
 
   @PutMapping
   public ResponseEntity<ApiResponse<String>> updateProtocol(
@@ -57,5 +58,11 @@ public class ProtocolController {
   public ResponseEntity<ApiResponse<List<ProtocolListResponse>>> getAllProtocols() {
     List<ProtocolListResponse> protocols = protocolService.listAllProtocols();
     return ResponseEntity.ok(new ApiResponse<>("success", protocols));
+  }
+
+  @PutMapping("/{id}/complete")
+  public ResponseEntity<SuccessfulUpdateResponse> completeProtocolIfEligible(@PathVariable Integer id) {
+    SuccessfulUpdateResponse response = protocolService.completeProtocolIfAllTreatmentsAreFinished(id);
+    return ResponseEntity.ok(response);
   }
 }

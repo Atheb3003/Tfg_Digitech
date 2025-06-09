@@ -20,5 +20,9 @@ public class ProtocolTreatment {
   @JoinColumn(name = "id_product")
   private Product product;
 
+  @Column(name = "is_finished")
   private Boolean isFinished = false;
+
+  @Column(name = "is_paid")
+  private Boolean isPaid = false;
 }

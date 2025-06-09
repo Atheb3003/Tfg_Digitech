@@ -3,10 +3,7 @@
 // ---------------------------------------------------------------------
 package com.gestion.application.controller;
 
-import com.gestion.application.dto.ApiResponse;
-import com.gestion.application.dto.TransactionRequest;
-import com.gestion.application.dto.TransactionResponse;
-import com.gestion.application.dto.TransactionSummaryDTO;
+import com.gestion.application.dto.*;
 import com.gestion.application.service.transaction.TransactionService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -107,6 +104,16 @@ public class TransactionController {
   ) {
     Page<TransactionSummaryDTO> page =
             service.getTransactionSummariesByContact(contactId, pageable);
+    return ResponseEntity.ok(new ApiResponse<>("success", page));
+  }
+
+
+  @GetMapping("/search/{search}")
+  public ResponseEntity<ApiResponse<Page<TransactionResponse>>> searchTransactions(
+          @PathVariable("search") String search,
+          @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC) Pageable pageable
+  ) {
+    Page<TransactionResponse> page = service.searchTransactions(search, pageable);
     return ResponseEntity.ok(new ApiResponse<>("success", page));
   }
 }
