@@ -1,27 +1,28 @@
-//// src/main/java/com/gestion/application/service/protocoltreatment/impl/CreateProtocolTreatmentImpl.java
-//package com.gestion.application.service.protocoltreatment.impl;
+////
+// src/main/java/com/gestion/application/service/protocoltreatment/impl/CreateProtocolTreatmentImpl.java
+// package com.gestion.application.service.protocoltreatment.impl;
 //
-//import com.gestion.application.dto.ProtocolTreatmentRequest;
-//import com.gestion.application.dto.ProtocolTreatmentResponse;
-//import com.gestion.application.exception.ProtocolNotFoundException;
-//import com.gestion.application.exception.ProductNotFoundException;
-//import com.gestion.application.exception.ProtocolTreatmentCreationException;
-//import com.gestion.application.mapper.ProtocolTreatmentMapper;
-//import com.gestion.application.model.ProtocolTreatment;
-//import com.gestion.application.repository.ProtocolRepository;
-//import com.gestion.application.repository.ProductRepository;
-//import com.gestion.application.repository.ProtocolTreatmentRepository;
-//import com.gestion.application.service.protocoltreatment.ProtocolTreatmentService;
-//import jakarta.transaction.Transactional;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.stereotype.Service;
+// import com.gestion.application.dto.ProtocolTreatmentRequest;
+// import com.gestion.application.dto.ProtocolTreatmentResponse;
+// import com.gestion.application.exception.ProtocolNotFoundException;
+// import com.gestion.application.exception.ProductNotFoundException;
+// import com.gestion.application.exception.ProtocolTreatmentCreationException;
+// import com.gestion.application.mapper.ProtocolTreatmentMapper;
+// import com.gestion.application.model.ProtocolTreatment;
+// import com.gestion.application.repository.ProtocolRepository;
+// import com.gestion.application.repository.ProductRepository;
+// import com.gestion.application.repository.ProtocolTreatmentRepository;
+// import com.gestion.application.service.protocoltreatment.ProtocolTreatmentService;
+// import jakarta.transaction.Transactional;
+// import lombok.RequiredArgsConstructor;
+// import org.springframework.stereotype.Service;
 //
 //
-//import java.util.List;
+// import java.util.List;
 //
-//@Service
-//@RequiredArgsConstructor
-//public class CreateProtocolTreatmentImpl implements ProtocolTreatmentService {
+// @Service
+// @RequiredArgsConstructor
+// public class CreateProtocolTreatmentImpl implements ProtocolTreatmentService {
 //
 //    private final ProtocolTreatmentRepository repo;
 //    private final ProtocolRepository protocolRepo;
@@ -82,4 +83,4 @@
 //        }
 //        repo.deleteById(id);
 //    }
-//}
+// }

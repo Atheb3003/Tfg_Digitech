@@ -4,14 +4,12 @@ import com.gestion.application.dto.ConsultationRequest;
 import com.gestion.application.dto.ConsultationResponse;
 import com.gestion.application.exception.ConsultationCreationException;
 import com.gestion.application.exception.ContactNotFoundException;
-import com.gestion.application.exception.PatientNotFoundException;
 import com.gestion.application.exception.ProtocolNotFoundException; // si usas el mismo para type
 import com.gestion.application.mapper.ConsultationMapper;
 import com.gestion.application.model.Consultation;
 import com.gestion.application.repository.ConsultationRepository;
 import com.gestion.application.repository.ConsultationTypeRepository;
 import com.gestion.application.repository.ContactRepository;
-import com.gestion.application.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -51,10 +51,9 @@ public class PatientController {
 
   @GetMapping("/by-contact/{contactId}")
   public ResponseEntity<?> getPatientIdByContact(@PathVariable Integer contactId) {
-    return patientService.getPatientIdByContact(contactId)
-            .<ResponseEntity<?>>map(id ->
-                    ResponseEntity.ok(new ApiResponse<>("found", id))
-            )
-            .orElseGet(() -> ResponseEntity.noContent().build());
+    return patientService
+        .getPatientIdByContact(contactId)
+        .<ResponseEntity<?>>map(id -> ResponseEntity.ok(new ApiResponse<>("found", id)))
+        .orElseGet(() -> ResponseEntity.noContent().build());
   }
 }

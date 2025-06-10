@@ -14,7 +14,7 @@ public class TransactionMapper {
     tx.setTransactionDate(dto.getTransactionDate());
     tx.setAmount(dto.getAmount());
     tx.setDescription(dto.getDescription());
-    tx.setPaymentMethod(dto.getPaymentMethod());      // ← Se asigna el enum PaymentMethod
+    tx.setPaymentMethod(dto.getPaymentMethod()); // ← Se asigna el enum PaymentMethod
     // El servicio sobrescribe el paciente con la entidad recoverada de la BD,
     // pero aquí seteamos un Patient “de relleno” para evitar nullPointer.
     Patient p = new Patient();
@@ -30,7 +30,7 @@ public class TransactionMapper {
     dto.setTransactionDate(entity.getTransactionDate());
     dto.setAmount(entity.getAmount());
     dto.setDescription(entity.getDescription());
-    dto.setPaymentMethod(entity.getPaymentMethod());  // ← Se devuelve el enum PaymentMethod
+    dto.setPaymentMethod(entity.getPaymentMethod()); // ← Se devuelve el enum PaymentMethod
     dto.setIsVisible(entity.getIsVisible());
     dto.setIdPatient(entity.getPatient().getIdPatient());
     return dto;

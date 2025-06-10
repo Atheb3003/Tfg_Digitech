@@ -24,15 +24,16 @@ public class CreateTransactionImpl {
   public TransactionResponse create(TransactionRequest req) {
     // 1) Validar campos obligatorios
     if (req.getTransactionDate() == null
-            || req.getAmount() == null
-            || req.getAmount() < 0
-            || req.getIdPatient() == null
-            || req.getPaymentMethod() == null) {
+        || req.getAmount() == null
+        || req.getAmount() < 0
+        || req.getIdPatient() == null
+        || req.getPaymentMethod() == null) {
       throw new TransactionInvalidDataException();
     }
 
     // 2) Verificar que el paciente existe
-    Patient paciente = patientRepo
+    Patient paciente =
+        patientRepo
             .findById(req.getIdPatient())
             .orElseThrow(() -> new PatientNotFoundException(req.getIdPatient()));
 

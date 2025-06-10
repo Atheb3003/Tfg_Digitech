@@ -11,21 +11,23 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CompleteProtocolIfAllTreatmentsFinishedImpl {
 
-    private final ProtocolRepository repository;
+  private final ProtocolRepository repository;
 
-    public SuccessfulUpdateResponse markAsFinishedIfApplicable(Integer idProtocol) {
-        Protocol protocol = repository.findById(idProtocol)
-                .orElseThrow(() -> new ProtocolNotFoundException(idProtocol));
+  public SuccessfulUpdateResponse markAsFinishedIfApplicable(Integer idProtocol) {
+    Protocol protocol =
+        repository
+            .findById(idProtocol)
+            .orElseThrow(() -> new ProtocolNotFoundException(idProtocol));
 
-        boolean allFinished = protocol.getTreatments().stream()
-                .allMatch(t -> Boolean.TRUE.equals(t.getIsFinished()));
+    boolean allFinished =
+        protocol.getTreatments().stream().allMatch(t -> Boolean.TRUE.equals(t.getIsFinished()));
 
-        if (allFinished && !Boolean.TRUE.equals(protocol.getIsFinished())) {
-            protocol.setIsFinished(true);
-            repository.save(protocol);
-            return new SuccessfulUpdateResponse("success", "Protocolo marcado como finalizado");
-        }
-
-        return new SuccessfulUpdateResponse("ignored", "No se actualizó: tratamientos incompletos");
+    if (allFinished && !Boolean.TRUE.equals(protocol.getIsFinished())) {
+      protocol.setIsFinished(true);
+      repository.save(protocol);
+      return new SuccessfulUpdateResponse("success", "Protocolo marcado como finalizado");
     }
+
+    return new SuccessfulUpdateResponse("ignored", "No se actualizó: tratamientos incompletos");
+  }
 }

@@ -7,10 +7,10 @@ import com.gestion.application.dto.*;
 import com.gestion.application.service.transaction.TransactionService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;               // <--- importar
-import org.springframework.data.domain.Pageable;           // <--- importar
+import org.springframework.data.domain.Page; // <--- importar
+import org.springframework.data.domain.Pageable; // <--- importar
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;        // <--- importar
+import org.springframework.data.web.PageableDefault; // <--- importar
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +24,7 @@ public class TransactionController {
   /** POST /transactions */
   @PostMapping
   public ResponseEntity<ApiResponse<TransactionResponse>> createTransaction(
-          @RequestBody TransactionRequest req
-  ) {
+      @RequestBody TransactionRequest req) {
     TransactionResponse created = service.createTransaction(req);
     return ResponseEntity.ok(new ApiResponse<>("success", created));
   }
@@ -40,22 +39,20 @@ public class TransactionController {
   /** GET /transactions (paginado de resúmenes) */
   @GetMapping
   public ResponseEntity<ApiResponse<Page<TransactionSummaryDTO>>> getTransactionSummaries(
-          @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC)
-          Pageable pageable
-  ) {
+      @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC)
+          Pageable pageable) {
     Page<TransactionSummaryDTO> page = service.getTransactionSummaries(pageable);
     return ResponseEntity.ok(new ApiResponse<>("success", page));
   }
 
   /**
-   * MODIFICADO: GET /transactions/visible (ahora paginado)
-   * Ejemplo: /transactions/visible?page=0&size=20&sort=transactionDate,desc
+   * MODIFICADO: GET /transactions/visible (ahora paginado) Ejemplo:
+   * /transactions/visible?page=0&size=20&sort=transactionDate,desc
    */
   @GetMapping("/visible")
   public ResponseEntity<ApiResponse<Page<TransactionResponse>>> getVisibleTransactions(
-          @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC)
-          Pageable pageable
-  ) {
+      @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC)
+          Pageable pageable) {
     Page<TransactionResponse> page = service.getVisibleTransactions(pageable);
     return ResponseEntity.ok(new ApiResponse<>("success", page));
   }
@@ -63,17 +60,14 @@ public class TransactionController {
   /** GET /transactions/patient/{id} */
   @GetMapping("/patient/{id}")
   public ResponseEntity<ApiResponse<List<TransactionResponse>>> getTransactionsByPatient(
-          @PathVariable("id") Integer patientId
-  ) {
+      @PathVariable("id") Integer patientId) {
     List<TransactionResponse> list = service.getTransactionsByPatient(patientId);
     return ResponseEntity.ok(new ApiResponse<>("success", list));
   }
 
   /** DELETE /transactions/{id} */
   @DeleteMapping("/{id}")
-  public ResponseEntity<ApiResponse<String>> deleteTransaction(
-          @PathVariable("id") Integer id
-  ) {
+  public ResponseEntity<ApiResponse<String>> deleteTransaction(@PathVariable("id") Integer id) {
     service.deleteTransaction(id);
     return ResponseEntity.ok(new ApiResponse<>("success", "Transacción eliminada"));
   }
@@ -81,8 +75,7 @@ public class TransactionController {
   /** PUT /transactions/visible/{id} */
   @PutMapping("/visible/{id}")
   public ResponseEntity<ApiResponse<TransactionResponse>> makeTransactionVisible(
-          @PathVariable("id") Integer id
-  ) {
+      @PathVariable("id") Integer id) {
     TransactionResponse resp = service.makeTransactionVisible(id);
     return ResponseEntity.ok(new ApiResponse<>("success", resp));
   }
@@ -90,8 +83,7 @@ public class TransactionController {
   /** PUT /transactions/invisible/{id} */
   @PutMapping("/invisible/{id}")
   public ResponseEntity<ApiResponse<TransactionResponse>> makeTransactionInvisible(
-          @PathVariable("id") Integer id
-  ) {
+      @PathVariable("id") Integer id) {
     TransactionResponse resp = service.makeTransactionInvisible(id);
     return ResponseEntity.ok(new ApiResponse<>("success", resp));
   }
@@ -99,20 +91,19 @@ public class TransactionController {
   /** GET /transactions/contact/{id} (paginado) */
   @GetMapping("/contact/{id}")
   public ResponseEntity<ApiResponse<Page<TransactionSummaryDTO>>> getTransactionsByContact(
-          @PathVariable("id") Integer contactId,
-          @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC) Pageable pageable
-  ) {
+      @PathVariable("id") Integer contactId,
+      @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC)
+          Pageable pageable) {
     Page<TransactionSummaryDTO> page =
-            service.getTransactionSummariesByContact(contactId, pageable);
+        service.getTransactionSummariesByContact(contactId, pageable);
     return ResponseEntity.ok(new ApiResponse<>("success", page));
   }
 
-
   @GetMapping("/search/{search}")
   public ResponseEntity<ApiResponse<Page<TransactionResponse>>> searchTransactions(
-          @PathVariable("search") String search,
-          @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC) Pageable pageable
-  ) {
+      @PathVariable("search") String search,
+      @PageableDefault(sort = "transactionDate", direction = Sort.Direction.DESC)
+          Pageable pageable) {
     Page<TransactionResponse> page = service.searchTransactions(search, pageable);
     return ResponseEntity.ok(new ApiResponse<>("success", page));
   }

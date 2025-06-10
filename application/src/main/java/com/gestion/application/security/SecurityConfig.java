@@ -66,8 +66,9 @@ public class SecurityConfig {
                     .hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/patients/{id}/to-patient")
                     .hasRole("ADMIN")
-//                    .requestMatchers(HttpMethod.GET, "/patients/search/{term}")
-//                    .hasRole("ADMIN")
+                    //                    .requestMatchers(HttpMethod.GET,
+                    // "/patients/search/{term}")
+                    //                    .hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/contacts")
                     .hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/contacts/{id}")
@@ -86,8 +87,6 @@ public class SecurityConfig {
                     .hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/consultation-types")
                     .hasRole("ADMIN")
-
-
                     .requestMatchers(HttpMethod.POST, "/revisions")
                     .hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/revisions")

@@ -22,10 +22,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
   Page<Transaction> findAllByIsVisibleTrue(Pageable pageable);
 
   /**
-   * NUEVO MÉTODO: devuelve paginado TransactionResponse (incluyendo idContactString)
-   * usando un JOIN único a Patient y Contact.
+   * NUEVO MÉTODO: devuelve paginado TransactionResponse (incluyendo idContactString) usando un JOIN
+   * único a Patient y Contact.
    */
-  @Query("""
+  @Query(
+      """
       SELECT new com.gestion.application.dto.TransactionResponse(
           t.idTransaction,
           t.transactionDate,
@@ -44,7 +45,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
   Page<TransactionResponse> findAllVisibleTransactions(Pageable pageable);
 
   // Query antigua de resumen, si aún la necesitas
-  @Query("""
+  @Query(
+      """
       SELECT new com.gestion.application.dto.TransactionSummaryDTO(
         t.idTransaction,
         t.transactionDate,
@@ -61,7 +63,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
   """)
   Page<TransactionSummaryDTO> findAllTransactionSummaries(Pageable pageable);
 
-  @Query("""
+  @Query(
+      """
       SELECT new com.gestion.application.dto.TransactionSummaryDTO(
         t.idTransaction,
         t.transactionDate,
@@ -77,11 +80,10 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
       WHERE c.idContact = :contactId
   """)
   Page<TransactionSummaryDTO> findTransactionSummariesByContactId(
-          @Param("contactId") Integer contactId,
-          Pageable pageable
-  );
+      @Param("contactId") Integer contactId, Pageable pageable);
 
-  @Query("""
+  @Query(
+      """
       SELECT new com.gestion.application.dto.TransactionResponse(
         t.idTransaction,
         t.transactionDate,
@@ -109,8 +111,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
         )
   """)
   Page<TransactionResponse> searchVisibleTransactions(
-          @Param("search") String search,
-          Pageable pageable
-  );
-
+      @Param("search") String search, Pageable pageable);
 }

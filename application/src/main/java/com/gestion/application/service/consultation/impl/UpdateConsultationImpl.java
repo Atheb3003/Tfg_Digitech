@@ -8,7 +8,6 @@ import com.gestion.application.mapper.ConsultationMapper;
 import com.gestion.application.model.Consultation;
 import com.gestion.application.model.ConsultationType;
 import com.gestion.application.model.Contact;
-import com.gestion.application.model.Patient;
 import com.gestion.application.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

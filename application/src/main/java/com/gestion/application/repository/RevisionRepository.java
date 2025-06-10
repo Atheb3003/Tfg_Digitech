@@ -1,13 +1,12 @@
 package com.gestion.application.repository;
 
 import com.gestion.application.model.Revision;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
 /**
- * Repositorio JPA para entidad Revision.
- * Incluye métodos para consulta por isVisible, contacto y tipo.
+ * Repositorio JPA para entidad Revision. Incluye métodos para consulta por isVisible, contacto y
+ * tipo.
  */
 public interface RevisionRepository extends JpaRepository<Revision, Integer> {
 

@@ -1,10 +1,9 @@
 package com.gestion.application.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "revision")
@@ -36,7 +35,7 @@ public class Revision {
   private Protocol protocol;
 
   @Column(name = "id_patient", nullable = true)
-    private Integer idPatient;
+  private Integer idPatient;
 
   @Column(name = "is_visible", nullable = false)
   private Boolean isVisible;

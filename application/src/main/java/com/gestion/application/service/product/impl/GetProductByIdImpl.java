@@ -18,9 +18,7 @@ public class GetProductByIdImpl {
 
   public ProductResponse getById(Integer id) {
     try {
-      Product p = repository
-              .findById(id)
-              .orElseThrow(() -> new ProductNotFoundException(id));
+      Product p = repository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
       return mapper.toResponse(p);
     } catch (ProductNotFoundException ex) {
 

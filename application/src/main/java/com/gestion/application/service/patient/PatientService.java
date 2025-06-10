@@ -5,12 +5,11 @@ import com.gestion.application.dto.PatientResponse;
 import com.gestion.application.service.patient.impl.GetPatientByContactIdImpl;
 import com.gestion.application.service.patient.impl.GetPatientByIdImpl;
 import com.gestion.application.service.patient.impl.SearchPatientImpl;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +18,6 @@ public class PatientService {
   private final GetPatientByIdImpl getPatientByIdImpl;
   private final SearchPatientImpl searchPatientImpl;
   private final GetPatientByContactIdImpl getByContactIdImpl;
-
 
   public PatientResponse getPatient(Integer id) {
     return getPatientByIdImpl.getPatientById(id);

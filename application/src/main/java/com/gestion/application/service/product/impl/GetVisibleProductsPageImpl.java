@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GetVisibleProductsPageImpl {
 
-    private final ProductRepository repository;
-    private final ProductMapper mapper;
+  private final ProductRepository repository;
+  private final ProductMapper mapper;
 
-    public Page<ProductResponse> getVisibleProducts(Pageable pageable) {
-        Page<Product> page = repository.findByIsVisibleTrue(pageable);
-        return page.map(mapper::toResponse);
-    }
+  public Page<ProductResponse> getVisibleProducts(Pageable pageable) {
+    Page<Product> page = repository.findByIsVisibleTrue(pageable);
+    return page.map(mapper::toResponse);
+  }
 }

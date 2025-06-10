@@ -297,10 +297,8 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(RevisionNotFoundException.class)
   public ResponseEntity<ErrorDetails> handleRevisionNotFound(
-          RevisionNotFoundException ex, HttpServletRequest req) {
+      RevisionNotFoundException ex, HttpServletRequest req) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body(new ErrorDetails(404, "Not Found", ex.getMessage(), req.getRequestURI()));
+        .body(new ErrorDetails(404, "Not Found", ex.getMessage(), req.getRequestURI()));
   }
-
-
 }

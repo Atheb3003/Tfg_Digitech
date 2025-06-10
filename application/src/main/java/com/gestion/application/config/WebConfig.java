@@ -4,7 +4,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer{
+public class WebConfig implements WebMvcConfigurer {
 
   @Bean
   public WebMvcConfigurer corsConfigurer() {
@@ -23,8 +23,6 @@ public class WebConfig implements WebMvcConfigurer{
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/photos/**")
-            .addResourceLocations("file:uploads/photos/");
+    registry.addResourceHandler("/photos/**").addResourceLocations("file:uploads/photos/");
   }
-
 }

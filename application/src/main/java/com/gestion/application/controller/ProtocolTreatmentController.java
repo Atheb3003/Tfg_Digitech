@@ -1,6 +1,5 @@
 package com.gestion.application.controller;
 
-import com.gestion.application.dto.ApiResponse;
 import com.gestion.application.dto.SuccessfulMarkAsPaidResponse;
 import com.gestion.application.service.protocoltreatment.ProtocolTreatmentService;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ProtocolTreatmentController {
 
-    private final ProtocolTreatmentService protocolTreatmentService;
+  private final ProtocolTreatmentService protocolTreatmentService;
 
-    /** PUT /protocol-treatments/{id}/paid */
-    @PutMapping("/{id}/paid")
-    public ResponseEntity<SuccessfulMarkAsPaidResponse> markAsPaid(@PathVariable Integer id) {
-        SuccessfulMarkAsPaidResponse response = protocolTreatmentService.markAsPaid(id);
-        return ResponseEntity.ok(response);
-    }
+  /** PUT /protocol-treatments/{id}/paid */
+  @PutMapping("/{id}/paid")
+  public ResponseEntity<SuccessfulMarkAsPaidResponse> markAsPaid(@PathVariable Integer id) {
+    SuccessfulMarkAsPaidResponse response = protocolTreatmentService.markAsPaid(id);
+    return ResponseEntity.ok(response);
+  }
 }

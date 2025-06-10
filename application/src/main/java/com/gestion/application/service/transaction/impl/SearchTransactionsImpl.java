@@ -11,16 +11,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SearchTransactionsImpl {
 
-    private final TransactionRepository transactionRepository;
+  private final TransactionRepository transactionRepository;
 
-    /**
-     * Lógica de búsqueda de transacciones visibles,
-     * proyectando directamente a TransactionResponse.
-     */
-    public Page<TransactionResponse> searchVisibleTransactions(
-            String search,
-            Pageable pageable
-    ) {
-        return transactionRepository.searchVisibleTransactions(search, pageable);
-    }
+  /**
+   * Lógica de búsqueda de transacciones visibles, proyectando directamente a TransactionResponse.
+   */
+  public Page<TransactionResponse> searchVisibleTransactions(String search, Pageable pageable) {
+    return transactionRepository.searchVisibleTransactions(search, pageable);
+  }
 }

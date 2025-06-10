@@ -6,15 +6,15 @@ import lombok.Data;
 @Data
 public class ProtocolTreatmentRequest {
 
-    @JsonProperty("id_protocol")
-    private Integer protocolId;
+  @JsonProperty("id_protocol")
+  private Integer protocolId;
 
-    @JsonProperty("id_product")
-    private Integer productId;
+  @JsonProperty("id_product")
+  private Integer productId;
 
-    @JsonProperty("is_finished")
-    private Boolean isFinished;
+  @JsonProperty("is_finished")
+  private Boolean isFinished;
 
-    @JsonProperty("is_paid")
-    private Boolean isPaid;
+  @JsonProperty("is_paid")
+  private Boolean isPaid;
 }

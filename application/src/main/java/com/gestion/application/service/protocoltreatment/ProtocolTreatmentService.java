@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProtocolTreatmentService {
 
-    private final MarkProtocolTreatmentAsPaidImpl markAsPaidImpl;
+  private final MarkProtocolTreatmentAsPaidImpl markAsPaidImpl;
 
-    public SuccessfulMarkAsPaidResponse markAsPaid(Integer treatmentId) {
-        return markAsPaidImpl.markAsPaid(treatmentId);
-    }
+  public SuccessfulMarkAsPaidResponse markAsPaid(Integer treatmentId) {
+    return markAsPaidImpl.markAsPaid(treatmentId);
+  }
 }

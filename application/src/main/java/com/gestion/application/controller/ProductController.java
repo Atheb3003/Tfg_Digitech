@@ -22,15 +22,15 @@ public class ProductController {
 
   @PostMapping
   public ResponseEntity<ApiResponse<ProductResponse>> createProduct(
-          @RequestBody ProductRequest req) {
+      @RequestBody ProductRequest req) {
     ProductResponse created = productService.createProduct(req);
     ApiResponse<ProductResponse> apiResponse = new ApiResponse<>("created", created);
     return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
   }
 
   /**
-   * GET /products?page=0&size=10&sort=name,asc
-   * — Devuelve una página de productos con isVisible == true
+   * GET /products?page=0&size=10&sort=name,asc — Devuelve una página de productos con isVisible ==
+   * true
    */
   @GetMapping
   public ResponseEntity<ApiResponse<Page<ProductResponse>>> getAllProducts(Pageable pageable) {
@@ -39,9 +39,7 @@ public class ProductController {
     return ResponseEntity.ok(apiResponse);
   }
 
-  /**
-   * GET /products/visible  (versión sin paginar, si la necesitas)
-   */
+  /** GET /products/visible (versión sin paginar, si la necesitas) */
   @GetMapping("/visible")
   public ResponseEntity<ApiResponse<List<ProductResponse>>> getVisibleProducts() {
     List<ProductResponse> list = productService.getVisibleProductsList();
@@ -51,8 +49,7 @@ public class ProductController {
 
   @PutMapping("/{id}")
   public ResponseEntity<ApiResponse<ProductResponse>> updateProduct(
-          @PathVariable("id") Integer id,
-          @RequestBody ProductRequest req) {
+      @PathVariable("id") Integer id, @RequestBody ProductRequest req) {
     ProductResponse updated = productService.updateProduct(id, req);
     ApiResponse<ProductResponse> apiResponse = new ApiResponse<>("success", updated);
     return ResponseEntity.ok(apiResponse);
@@ -62,8 +59,8 @@ public class ProductController {
   public ResponseEntity<SuccessfulDeleteResponse> deleteProduct(@PathVariable Integer id) {
     productService.deleteProduct(id);
     SuccessfulDeleteResponse response =
-            new SuccessfulDeleteResponse(
-                    "deleted", "Producto con ID " + id + " eliminado correctamente.");
+        new SuccessfulDeleteResponse(
+            "deleted", "Producto con ID " + id + " eliminado correctamente.");
     return ResponseEntity.ok(response);
   }
 

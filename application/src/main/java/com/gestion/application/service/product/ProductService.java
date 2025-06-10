@@ -35,24 +35,17 @@ public class ProductService {
     return createImpl.createPRoduct(req);
   }
 
-  /**
-   * GET /products?page=X&size=Y&sort=...
-   * — Devuelve Page<ProductResponse> con isVisible == true
-   */
+  /** GET /products?page=X&size=Y&sort=... — Devuelve Page<ProductResponse> con isVisible == true */
   public Page<ProductResponse> getVisibleProducts(Pageable pageable) {
     return visiblePageImpl.getVisibleProducts(pageable);
   }
 
-  /**
-   * GET /products/all  (sin paginar, si se necesita)
-   */
+  /** GET /products/all (sin paginar, si se necesita) */
   public List<ProductResponse> getAllProducts() {
     return listImpl.getAllProducts();
   }
 
-  /**
-   * GET /products/visible  (sin paginar, si se necesita)
-   */
+  /** GET /products/visible (sin paginar, si se necesita) */
   public List<ProductResponse> getVisibleProductsList() {
     return visibleImpl.getVisibleProducts();
   }

@@ -23,27 +23,31 @@ public class GetProtocolByContactIdImpl {
       throw new ProtocolNotFoundException(contactId);
     }
 
-    return protocols.stream().map(protocol -> {
-      List<ProtocolTreatmentResponse> treatmentResponses = protocol.getTreatments().stream()
-              .map(t -> new ProtocolTreatmentResponse(
-                      t.getId(),
-                      t.getProduct().getIdProduct(),
-                      t.getProduct().getName(),
-                      BigDecimal.valueOf(t.getProduct().getPrice()),
-                      t.getIsPaid(),
-                      t.getIsFinished()
-              ))
-              .toList();
+    return protocols.stream()
+        .map(
+            protocol -> {
+              List<ProtocolTreatmentResponse> treatmentResponses =
+                  protocol.getTreatments().stream()
+                      .map(
+                          t ->
+                              new ProtocolTreatmentResponse(
+                                  t.getId(),
+                                  t.getProduct().getIdProduct(),
+                                  t.getProduct().getName(),
+                                  BigDecimal.valueOf(t.getProduct().getPrice()),
+                                  t.getIsPaid(),
+                                  t.getIsFinished()))
+                      .toList();
 
-      ProtocolResponse response = new ProtocolResponse();
-      response.setIdProtocol(protocol.getIdProtocol());
-      response.setDescription(protocol.getDescription());
-      response.setPrice(protocol.getPrice());
-      response.setIsFinished(protocol.getIsFinished());
-      response.setTreatments(treatmentResponses);
+              ProtocolResponse response = new ProtocolResponse();
+              response.setIdProtocol(protocol.getIdProtocol());
+              response.setDescription(protocol.getDescription());
+              response.setPrice(protocol.getPrice());
+              response.setIsFinished(protocol.getIsFinished());
+              response.setTreatments(treatmentResponses);
 
-      return response;
-    }).toList();
+              return response;
+            })
+        .toList();
   }
-
 }

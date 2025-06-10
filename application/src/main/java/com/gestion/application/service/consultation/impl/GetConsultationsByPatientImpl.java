@@ -1,18 +1,18 @@
-//package com.gestion.application.service.consultation.impl;
+// package com.gestion.application.service.consultation.impl;
 //
-//import com.gestion.application.dto.ConsultationResponse;
-//import com.gestion.application.exception.PatientNotFoundException;
-//import com.gestion.application.mapper.ConsultationMapper;
-//import com.gestion.application.repository.ConsultationRepository;
-//import com.gestion.application.repository.PatientRepository;
-//import java.util.List;
-//import java.util.stream.Collectors;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.stereotype.Service;
+// import com.gestion.application.dto.ConsultationResponse;
+// import com.gestion.application.exception.PatientNotFoundException;
+// import com.gestion.application.mapper.ConsultationMapper;
+// import com.gestion.application.repository.ConsultationRepository;
+// import com.gestion.application.repository.PatientRepository;
+// import java.util.List;
+// import java.util.stream.Collectors;
+// import lombok.RequiredArgsConstructor;
+// import org.springframework.stereotype.Service;
 //
-//@Service
-//@RequiredArgsConstructor
-//public class GetConsultationsByPatientImpl {
+// @Service
+// @RequiredArgsConstructor
+// public class GetConsultationsByPatientImpl {
 //
 //  private final ConsultationRepository repo;
 //  private final PatientRepository patientRepo;
@@ -25,4 +25,4 @@
 //        .map(mapper::toResponse)
 //        .collect(Collectors.toList());
 //  }
-//}
+// }

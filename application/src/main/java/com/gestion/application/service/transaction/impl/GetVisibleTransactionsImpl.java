@@ -15,9 +15,7 @@ public class GetVisibleTransactionsImpl {
   private final TransactionMapper mapper;
   private final TransactionRepository transactionRepository;
 
-
   public Page<TransactionResponse> getVisibleTransactions(Pageable pageable) {
     return transactionRepository.findAllVisibleTransactions(pageable);
   }
-
 }

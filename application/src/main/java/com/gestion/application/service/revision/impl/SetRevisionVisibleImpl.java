@@ -9,22 +9,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * Implementación de la operación “marcar revisión como visible”.
- */
+/** Implementación de la operación “marcar revisión como visible”. */
 @Service
 @RequiredArgsConstructor
 public class SetRevisionVisibleImpl {
 
-    private final RevisionRepository revisionRepository;
-    private final RevisionMapper revisionMapper;
+  private final RevisionRepository revisionRepository;
+  private final RevisionMapper revisionMapper;
 
-    @Transactional
-    public RevisionResponse execute(Integer id) {
-        Revision existing = revisionRepository.findById(id)
-                .orElseThrow(() -> new RevisionNotFoundException(id));
-        existing.setIsVisible(true);
-        Revision saved = revisionRepository.save(existing);
-        return revisionMapper.toDto(saved);
-    }
+  @Transactional
+  public RevisionResponse execute(Integer id) {
+    Revision existing =
+        revisionRepository.findById(id).orElseThrow(() -> new RevisionNotFoundException(id));
+    existing.setIsVisible(true);
+    Revision saved = revisionRepository.save(existing);
+    return revisionMapper.toDto(saved);
+  }
 }

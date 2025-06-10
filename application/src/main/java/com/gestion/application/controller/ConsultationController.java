@@ -39,21 +39,21 @@ public class ConsultationController {
     return ResponseEntity.ok(new ApiResponse<>("success", service.getVisible()));
   }
 
-//  /** GET /consultations/patient/{id} */
-//  @GetMapping("/patient/{id}")
-//  public ResponseEntity<ApiResponse<List<ConsultationResponse>>> getByPatient(
-//      @PathVariable String id) {
-//
-//    Integer patientId;
-//    try {
-//      patientId = Integer.valueOf(id);
-//    } catch (NumberFormatException ex) {
-//      throw new IdArgumentTypeException(id);
-//    }
-//
-//    List<ConsultationResponse> list = service.getByPatient(patientId);
-//    return ResponseEntity.ok(new ApiResponse<>("success", list));
-//  }
+  //  /** GET /consultations/patient/{id} */
+  //  @GetMapping("/patient/{id}")
+  //  public ResponseEntity<ApiResponse<List<ConsultationResponse>>> getByPatient(
+  //      @PathVariable String id) {
+  //
+  //    Integer patientId;
+  //    try {
+  //      patientId = Integer.valueOf(id);
+  //    } catch (NumberFormatException ex) {
+  //      throw new IdArgumentTypeException(id);
+  //    }
+  //
+  //    List<ConsultationResponse> list = service.getByPatient(patientId);
+  //    return ResponseEntity.ok(new ApiResponse<>("success", list));
+  //  }
 
   /** GET /consultations/contact/{id} */
   @GetMapping("/contact/{id}")

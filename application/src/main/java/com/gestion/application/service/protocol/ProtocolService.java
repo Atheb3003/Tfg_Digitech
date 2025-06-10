@@ -1,9 +1,9 @@
 package com.gestion.application.service.protocol;
 
 import com.gestion.application.dto.*;
-        import com.gestion.application.model.Protocol;
+import com.gestion.application.model.Protocol;
 import com.gestion.application.service.protocol.impl.*;
-        import java.util.List;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,6 @@ public class ProtocolService {
   private final GetAllProtocolsImpl getAllProtocols;
   private final CompleteProtocolIfAllTreatmentsFinishedImpl completeProtocol;
 
-
   public Protocol createProtocol(CreateProtocolRequest request) {
     return createProtocol.createProtocol(request);
   }
@@ -31,7 +30,6 @@ public class ProtocolService {
   public List<ProtocolResponse> getProtocolByContactId(Integer contactId) {
     return getProtocolByContactId.getProtocolByContactId(contactId);
   }
-
 
   public Protocol updateProtocol(UpdateProtocolRequest request) {
     return updateProtocol.updateProtocol(request);
@@ -48,5 +46,4 @@ public class ProtocolService {
   public SuccessfulUpdateResponse completeProtocolIfAllTreatmentsAreFinished(Integer protocolId) {
     return completeProtocol.markAsFinishedIfApplicable(protocolId);
   }
-
 }

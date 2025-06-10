@@ -10,11 +10,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GetPatientByContactIdImpl {
 
-    private final PatientRepository patientRepository;
+  private final PatientRepository patientRepository;
 
-    public Optional<Integer> getPatientIdByContact(Integer contactId) {
-        return patientRepository
-                .findByContact_IdContact(contactId)
-                .map(Patient::getIdPatient);
-    }
+  public Optional<Integer> getPatientIdByContact(Integer contactId) {
+    return patientRepository.findByContact_IdContact(contactId).map(Patient::getIdPatient);
+  }
 }

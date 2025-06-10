@@ -6,9 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Resumen de una transacción para listados.
- */
+/** Resumen de una transacción para listados. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,4 +20,3 @@ public class TransactionSummaryDTO {
   private String fullName;
   private Integer idContact;
 }
-

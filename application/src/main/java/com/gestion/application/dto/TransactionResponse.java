@@ -3,14 +3,11 @@ package com.gestion.application.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gestion.application.model.PaymentMethod;
 import java.time.LocalDate;
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * DTO para respuesta de transacciones visibles,
- * construido directamente desde la query JPQL.
- */
+/** DTO para respuesta de transacciones visibles, construido directamente desde la query JPQL. */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,5 +33,4 @@ public class TransactionResponse {
 
   @JsonProperty("id_contact_string")
   private String idContactString;
-
 }

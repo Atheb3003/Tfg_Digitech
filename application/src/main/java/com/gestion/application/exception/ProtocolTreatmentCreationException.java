@@ -2,11 +2,11 @@
 package com.gestion.application.exception;
 
 public class ProtocolTreatmentCreationException extends RuntimeException {
-    public ProtocolTreatmentCreationException(String message) {
-        super(message);
-    }
+  public ProtocolTreatmentCreationException(String message) {
+    super(message);
+  }
 
-    public ProtocolTreatmentCreationException() {
-        super("Error al crear ProtocolTreatment");
-    }
+  public ProtocolTreatmentCreationException() {
+    super("Error al crear ProtocolTreatment");
+  }
 }

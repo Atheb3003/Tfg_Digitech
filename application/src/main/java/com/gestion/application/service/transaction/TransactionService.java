@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------------
 package com.gestion.application.service.transaction;
 
-import com.gestion.application.dto.SearchTransactionResponseDTO;
 import com.gestion.application.dto.TransactionRequest;
 import com.gestion.application.dto.TransactionResponse;
 import com.gestion.application.dto.TransactionSummaryDTO;
@@ -35,16 +34,12 @@ public class TransactionService {
   private final ContactRepository contactRepository;
   private final SearchTransactionsImpl searchImpl;
 
-  /**
-   * POST /transactions
-   */
+  /** POST /transactions */
   public TransactionResponse createTransaction(TransactionRequest req) {
     return createImpl.create(req);
   }
 
-  /**
-   * GET /transactions/all (sin paginar)
-   */
+  /** GET /transactions/all (sin paginar) */
   public List<TransactionResponse> getAllTransactions() {
     return listImpl.getAllTransactions();
   }
@@ -53,61 +48,45 @@ public class TransactionService {
     return visibleImpl.getVisibleTransactions(pageable);
   }
 
-  /**
-   * GET /transactions/patient/{id}
-   */
+  /** GET /transactions/patient/{id} */
   public List<TransactionResponse> getTransactionsByPatient(Integer patientId) {
     return byPatientImpl.getTransactionsByPatient(patientId);
   }
 
-  /**
-   * DELETE /transactions/{id}
-   */
+  /** DELETE /transactions/{id} */
   public void deleteTransaction(Integer id) {
     deleteImpl.deleteTransaction(id);
   }
 
-  /**
-   * PUT /transactions/visible/{id}
-   */
+  /** PUT /transactions/visible/{id} */
   public TransactionResponse makeTransactionVisible(Integer id) {
     return mapper.toResponse(makeVisibleImpl.makeVisible(id));
   }
 
-  /**
-   * PUT /transactions/invisible/{id}
-   */
+  /** PUT /transactions/invisible/{id} */
   public TransactionResponse makeTransactionInvisible(Integer id) {
     return mapper.toResponse(makeInvisibleImpl.makeInvisible(id));
   }
 
-  /**
-   * GET /transactions (paginado)
-   */
+  /** GET /transactions (paginado) */
   public Page<TransactionSummaryDTO> getTransactionSummaries(Pageable pageable) {
     return getSummariesImpl.execute(pageable);
   }
 
-  /**
-   * GET /transactions/contact/{id} (paginado)
-   */
+  /** GET /transactions/contact/{id} (paginado) */
   public Page<TransactionSummaryDTO> getTransactionSummariesByContact(
-          Integer contactId,
-          Pageable pageable
-  ) {
-    contactRepository.findById(contactId)
-            .orElseThrow(() -> new ContactNotFoundException(contactId));
+      Integer contactId, Pageable pageable) {
+    contactRepository
+        .findById(contactId)
+        .orElseThrow(() -> new ContactNotFoundException(contactId));
     return transactionRepository.findTransactionSummariesByContactId(contactId, pageable);
   }
 
   /**
-   * GET /transactions/search/{search}
-   * Delegamos en SearchTransactionsImpl para mantener la lógica encapsulada.
+   * GET /transactions/search/{search} Delegamos en SearchTransactionsImpl para mantener la lógica
+   * encapsulada.
    */
-  public Page<TransactionResponse> searchTransactions(
-          String search,
-          Pageable pageable
-  ) {
+  public Page<TransactionResponse> searchTransactions(String search, Pageable pageable) {
     return transactionRepository.searchVisibleTransactions(search, pageable);
   }
 }

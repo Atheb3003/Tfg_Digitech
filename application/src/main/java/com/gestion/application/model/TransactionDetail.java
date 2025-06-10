@@ -20,7 +20,7 @@ public class TransactionDetail {
   private Transaction transaction;
 
   @ManyToOne
-  @JoinColumn(name = "id_product", nullable =true)
+  @JoinColumn(name = "id_product", nullable = true)
   private Product product;
 
   private Integer quantity;
@@ -34,8 +34,6 @@ public class TransactionDetail {
   @ManyToOne(optional = true)
   @JoinColumn(name = "idSurgeryReservation", nullable = true)
   private SurgeryReservation surgeryReservation;
-
-
 
   @Column(name = "is_visible")
   private Boolean isVisible = true;

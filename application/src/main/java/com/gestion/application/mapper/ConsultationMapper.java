@@ -5,7 +5,6 @@ import com.gestion.application.dto.ConsultationResponse;
 import com.gestion.application.model.Consultation;
 import com.gestion.application.model.ConsultationType;
 import com.gestion.application.model.Contact;
-import com.gestion.application.model.Patient;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,11 +18,11 @@ public class ConsultationMapper {
     Contact contact = new Contact();
     contact.setIdContact(dto.getContactId());
 
-
     ConsultationType type = new ConsultationType();
     type.setIdType(dto.getTypeId());
 
-    c.setContact(contact);;
+    c.setContact(contact);
+    ;
     c.setType(type);
     c.setFollicularUnits(dto.getFollicularUnits());
     c.setInsertionZones(dto.getInsertionZones());
