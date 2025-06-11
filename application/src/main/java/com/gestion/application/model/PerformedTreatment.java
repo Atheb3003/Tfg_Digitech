@@ -25,9 +25,10 @@ public class PerformedTreatment {
   @JoinColumn(name = "id_revision", nullable = true)
   private Revision revision;
 
-  @ManyToOne
-  @JoinColumn(name = "id_protocol_treatment", nullable = true)
-  private ProtocolTreatment protocolTreatment;
+
+  @Column(name = "id_protocol_treatment")
+  private Integer protocolTreatmentId;
+
 
   private LocalDate performedDate; // Fecha en la que se realizó el tratamiento
   private Double finalPrice;
@@ -35,11 +36,5 @@ public class PerformedTreatment {
 
   private LocalDate creationDate;
 
-  @PrePersist
-  public void prePersist() {
-    if (protocolTreatment != null) {
-      protocolTreatment.setIsFinished(true);
-    }
-    this.creationDate = LocalDate.now();
-  }
+
 }

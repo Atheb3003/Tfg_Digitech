@@ -2,14 +2,8 @@ package com.gestion.application.service.performedTreatment;
 
 import com.gestion.application.dto.PerformedTreatmentRequest;
 import com.gestion.application.dto.PerformedTreatmentResponse;
-import com.gestion.application.model.Contact;
-import com.gestion.application.model.PerformedTreatment;
-import com.gestion.application.model.Product;
-import com.gestion.application.model.ProtocolTreatment;
-import com.gestion.application.repository.ContactRepository;
-import com.gestion.application.repository.PerformedTreatmentRepository;
-import com.gestion.application.repository.ProductRepository;
-import com.gestion.application.repository.ProtocolTreatmentRepository;
+import com.gestion.application.model.*;
+import com.gestion.application.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,34 +16,35 @@ public class PerformedTreatmentService {
     private final PerformedTreatmentRepository repository;
     private final ContactRepository contactRepository;
     private final ProductRepository productRepository;
-    private final ProtocolTreatmentRepository protocolTreatmentRepository;
+    private final RevisionRepository revisionRepository;
 
     public PerformedTreatment createTreatment(PerformedTreatmentRequest request) {
         PerformedTreatment treatment = new PerformedTreatment();
 
+        // Validar y asignar contacto
         Contact contact = contactRepository.findById(request.getContactId())
                 .orElseThrow(() -> new RuntimeException("Contacto no encontrado"));
-
         treatment.setContact(contact);
-        treatment.setPerformedDate(request.getPerformedDate());
-        treatment.setFinalPrice(request.getFinalPrice());
-        treatment.setNotes(request.getNotes());
 
+        // Validar y asignar producto (opcional)
         if (request.getProductId() != null) {
             Product product = productRepository.findById(request.getProductId())
                     .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
             treatment.setProduct(product);
-        } else if (request.getProtocolTreatmentId() != null) {
-            ProtocolTreatment pt = protocolTreatmentRepository.findById(request.getProtocolTreatmentId())
-                    .orElseThrow(() -> new RuntimeException("Tratamiento de protocolo no encontrado"));
-            treatment.setProtocolTreatment(pt);
-        } else {
-            throw new RuntimeException("Debe especificar un producto o tratamiento de protocolo");
         }
+
+        // Validar y asignar revisión (opcional)
+        if (request.getRevisionId() != null) {
+            Revision revision = revisionRepository.findById(request.getRevisionId())
+                    .orElseThrow(() -> new RuntimeException("Revisión no encontrada"));
+            treatment.setRevision(revision);
+        }
+
+        // Asignar fecha de realización
+        treatment.setPerformedDate(request.getPerformedDate());
 
         return repository.save(treatment);
     }
-
     public List<PerformedTreatmentResponse> getTreatmentsByContactId(Integer contactId) {
         List<PerformedTreatment> treatments = repository.findByContactIdContactOrderByPerformedDateDesc(contactId);
 
@@ -59,12 +54,11 @@ public class PerformedTreatmentService {
 
             if (treatment.getProduct() != null) {
                 productName = treatment.getProduct().getName();
-            } else if (treatment.getProtocolTreatment() != null) {
-                Product protocolProduct = treatment.getProtocolTreatment().getProduct();
-                if (protocolProduct != null) {
-                    productName = protocolProduct.getName();
-                    isFromProtocol = true;
-                }
+            }
+
+            // Si existe un ID de protocolo, marcamos como "desde protocolo"
+            if (treatment.getProtocolTreatmentId() != null) {
+                isFromProtocol = true;
             }
 
             return new PerformedTreatmentResponse(
@@ -77,6 +71,7 @@ public class PerformedTreatmentService {
             );
         }).toList();
     }
+
 }
 
 
