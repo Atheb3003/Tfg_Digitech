@@ -34,9 +34,10 @@ public class GetProtocolByContactIdImpl {
                                   t.getId(),
                                   t.getProduct().getIdProduct(),
                                   t.getProduct().getName(),
-                                  BigDecimal.valueOf(t.getProduct().getPrice()),
+                                      t.getPrice(),
                                   t.getIsPaid(),
-                                  t.getIsFinished()))
+                                  t.getIsFinished(),
+                                      t.getDetail()))
                       .toList();
 
               ProtocolResponse response = new ProtocolResponse();

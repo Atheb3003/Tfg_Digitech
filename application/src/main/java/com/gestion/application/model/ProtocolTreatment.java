@@ -3,6 +3,8 @@ package com.gestion.application.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "protocol_treatment")
 @Data
@@ -25,4 +27,10 @@ public class ProtocolTreatment {
 
   @Column(name = "is_paid")
   private Boolean isPaid = false;
+
+  @Column(nullable = true)
+  private String detail;
+
+  @Column(name = "price", nullable = false)
+  private BigDecimal price; // ← nuevo campo
 }

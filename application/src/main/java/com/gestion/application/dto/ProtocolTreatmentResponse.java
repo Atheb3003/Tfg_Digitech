@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor // ← Genera un constructor con todos los campos
+@AllArgsConstructor
 public class ProtocolTreatmentResponse {
 
   private Integer id;
@@ -27,4 +27,7 @@ public class ProtocolTreatmentResponse {
 
   @JsonProperty("is_finished")
   private Boolean isFinished;
+
+  @JsonProperty("detail")
+  private String detail; // ← nuevo campo
 }

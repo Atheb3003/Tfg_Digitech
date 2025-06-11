@@ -26,4 +26,5 @@ public class Protocol {
 
   @OneToMany(mappedBy = "protocol", cascade = CascadeType.ALL)
   private List<ProtocolTreatment> treatments;
+
 }
