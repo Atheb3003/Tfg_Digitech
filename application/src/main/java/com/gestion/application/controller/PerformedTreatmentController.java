@@ -23,9 +23,10 @@ public class PerformedTreatmentController {
 
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody PerformedTreatmentRequest request) {
-        service.createTreatment(request);
+        service.savePerformedTreatment(request);
         return ResponseEntity.ok().build();
     }
+
 
     @PostMapping("/from-protocol")
     public ResponseEntity<String> addFromProtocol(@RequestBody PerformedTreatmentFromProtocolRequest request) {
@@ -39,5 +40,6 @@ public class PerformedTreatmentController {
     public ResponseEntity<List<PerformedTreatmentResponse>> getByContact(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getTreatmentsByContactId(id));
     }
+
 }
 

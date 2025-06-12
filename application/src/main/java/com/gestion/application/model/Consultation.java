@@ -1,6 +1,8 @@
 package com.gestion.application.model;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Data;
 
@@ -34,7 +36,7 @@ public class Consultation {
   @Column(name = "surgery_reserved")
   private Boolean surgeryReserved;
 
-  private LocalDateTime consultationDate;
+  private LocalDate consultationDate;
 
   private Boolean isVisible;
 }

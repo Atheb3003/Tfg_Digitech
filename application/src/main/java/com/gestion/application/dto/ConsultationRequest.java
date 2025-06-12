@@ -1,6 +1,8 @@
 package com.gestion.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.Data;
 
@@ -27,5 +29,5 @@ public class ConsultationRequest {
   private Boolean surgeryReserved;
 
   @JsonProperty("consultation_date")
-  private LocalDateTime consultationDate;
+  private LocalDate consultationDate;
 }

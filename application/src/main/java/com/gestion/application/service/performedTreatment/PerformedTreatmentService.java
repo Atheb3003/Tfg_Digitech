@@ -7,59 +7,50 @@ import com.gestion.application.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class PerformedTreatmentService {
 
-    private final PerformedTreatmentRepository repository;
-    private final ContactRepository contactRepository;
+    private final PerformedTreatmentRepository performedTreatmentRepository;
     private final ProductRepository productRepository;
-    private final RevisionRepository revisionRepository;
+    private final ContactRepository contactRepository;
 
-    public PerformedTreatment createTreatment(PerformedTreatmentRequest request) {
+    public void savePerformedTreatment(PerformedTreatmentRequest request) {
         PerformedTreatment treatment = new PerformedTreatment();
 
-        // Validar y asignar contacto
+        // Buscar y asignar contacto
         Contact contact = contactRepository.findById(request.getContactId())
-                .orElseThrow(() -> new RuntimeException("Contacto no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Contacto no encontrado con ID: " + request.getContactId()));
         treatment.setContact(contact);
 
-        // Validar y asignar producto (opcional)
+        // Si hay ID de producto, buscar y guardar su nombre
         if (request.getProductId() != null) {
             Product product = productRepository.findById(request.getProductId())
-                    .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
-            treatment.setProduct(product);
+                    .orElseThrow(() -> new RuntimeException("Producto no encontrado con ID: " + request.getProductId()));
+            treatment.setProductName(product.getName());
         }
 
-        // Validar y asignar revisión (opcional)
+        // Si hay ID de revisión, guardar directamente el ID
         if (request.getRevisionId() != null) {
-            Revision revision = revisionRepository.findById(request.getRevisionId())
-                    .orElseThrow(() -> new RuntimeException("Revisión no encontrada"));
-            treatment.setRevision(revision);
+            treatment.setRevisionId(request.getRevisionId());
         }
 
-        // Asignar fecha de realización
         treatment.setPerformedDate(request.getPerformedDate());
+        treatment.setCreationDate(LocalDate.now());
 
-        return repository.save(treatment);
+        performedTreatmentRepository.save(treatment);
     }
+
     public List<PerformedTreatmentResponse> getTreatmentsByContactId(Integer contactId) {
-        List<PerformedTreatment> treatments = repository.findByContactIdContactOrderByPerformedDateDesc(contactId);
+        List<PerformedTreatment> treatments = performedTreatmentRepository.findByContactIdContactOrderByPerformedDateDesc(contactId);
 
         return treatments.stream().map(treatment -> {
-            String productName = null;
-            boolean isFromProtocol = false;
-
-            if (treatment.getProduct() != null) {
-                productName = treatment.getProduct().getName();
-            }
-
-            // Si existe un ID de protocolo, marcamos como "desde protocolo"
-            if (treatment.getProtocolTreatmentId() != null) {
-                isFromProtocol = true;
-            }
+            String productName = treatment.getProductName();
+            boolean isFromProtocol = treatment.getProtocolTreatmentId() != null;
+            Integer revisionId = treatment.getRevisionId();
 
             return new PerformedTreatmentResponse(
                     treatment.getId(),
@@ -67,11 +58,15 @@ public class PerformedTreatmentService {
                     treatment.getFinalPrice(),
                     treatment.getNotes(),
                     productName,
-                    isFromProtocol
+                    isFromProtocol,
+                    revisionId
             );
         }).toList();
     }
-
 }
+
+
+
+
 
 

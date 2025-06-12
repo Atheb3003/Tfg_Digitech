@@ -16,4 +16,5 @@ public class PerformedTreatmentResponse {
   private String notes;
   private String productName;
   private Boolean isFromProtocol;
+  private Integer revisionId; // ← nuevo campo
 }

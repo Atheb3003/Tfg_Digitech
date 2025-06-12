@@ -17,13 +17,10 @@ public class PerformedTreatment {
   @JoinColumn(name = "id_contact")
   private Contact contact;
 
-  @ManyToOne
-  @JoinColumn(name = "id_product", nullable = true)
-  private Product product;
+  private String productName;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "id_revision", nullable = true)
-  private Revision revision;
+  @Column(name = "id_revision", nullable = true)
+  private Integer revisionId;
 
 
   @Column(name = "id_protocol_treatment")
