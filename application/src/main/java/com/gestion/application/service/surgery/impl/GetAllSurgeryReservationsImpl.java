@@ -15,18 +15,20 @@ public class GetAllSurgeryReservationsImpl {
   private final SurgeryReservationRepository reservationRepository;
 
   public Page<SurgeryReservationResponse> getAllVisible(Pageable pageable) {
-    return reservationRepository.findAllByIsVisibleTrue(pageable).map(this::mapToResponse);
+    return reservationRepository
+            .findAllByIsVisibleTrue(pageable)
+            .map(this::mapToResponse);
   }
 
   private SurgeryReservationResponse mapToResponse(SurgeryReservation reservation) {
     SurgeryReservationResponse dto = new SurgeryReservationResponse();
-    dto.setId(reservation.getIdSurgeryReservation());
+    dto.setIdSurgeryReservation(reservation.getIdSurgeryReservation());
     dto.setIdPatient(reservation.getPatient().getIdPatient());
     dto.setIdContact(reservation.getPatient().getContact().getIdContact());
     dto.setContactFullName(
-        reservation.getPatient().getContact().getName()
-            + " "
-            + reservation.getPatient().getContact().getSurname());
+            reservation.getPatient().getContact().getName()
+                    + " "
+                    + reservation.getPatient().getContact().getSurname());
     dto.setDescription(reservation.getDescription());
     dto.setFollicularUnits(reservation.getFollicularUnits());
     dto.setSurgicalTechnique(reservation.getSurgicalTechnique());
@@ -36,7 +38,9 @@ public class GetAllSurgeryReservationsImpl {
     dto.setSurgeryPrice(reservation.getSurgeryPrice());
     dto.setIsVisible(reservation.getIsVisible());
     dto.setConfirmed(reservation.getConfirmed());
-
+    // Nuevos campos
+    dto.setRemainingMoney(reservation.getRemainingMoney());
+    dto.setIsPaid(reservation.getIsPaid());
     return dto;
   }
 }

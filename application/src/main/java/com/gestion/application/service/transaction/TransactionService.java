@@ -32,7 +32,8 @@ public class TransactionService {
   private final GetTransactionSummariesImpl getSummariesImpl;
   private final TransactionRepository transactionRepository;
   private final ContactRepository contactRepository;
-  private final SearchTransactionsImpl searchImpl;
+  private final GetTransactionInfoImpl getTransactionInfoImpl;
+
 
   /** POST /transactions */
   public TransactionResponse createTransaction(TransactionRequest req) {
@@ -88,5 +89,9 @@ public class TransactionService {
    */
   public Page<TransactionResponse> searchTransactions(String search, Pageable pageable) {
     return transactionRepository.searchVisibleTransactions(search, pageable);
+  }
+
+  public TransactionResponse getTransactionInfo(Integer id) {
+    return getTransactionInfoImpl.getTransactionInfo(id);
   }
 }

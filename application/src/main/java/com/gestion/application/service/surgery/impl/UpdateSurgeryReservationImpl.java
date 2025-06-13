@@ -8,6 +8,8 @@ import com.gestion.application.repository.SurgeryReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @RequiredArgsConstructor
 @Service
 public class UpdateSurgeryReservationImpl {
@@ -15,42 +17,57 @@ public class UpdateSurgeryReservationImpl {
   private final SurgeryReservationRepository reservationRepository;
 
   public SurgeryReservationResponse update(Integer id, UpdateSurgeryReservationRequest request) {
-    SurgeryReservation reservation =
-        reservationRepository
-            .findById(id)
+    SurgeryReservation reservation = reservationRepository.findById(id)
             .orElseThrow(() -> new SurgeryReservationNotFoundException(id));
 
+    // Actualiza los campos básicos
     reservation.setDescription(request.getDescription());
     reservation.setFollicularUnits(request.getFollicularUnits());
     reservation.setSurgicalTechnique(request.getSurgicalTechnique());
     reservation.setEstimatedDate(request.getEstimatedDate());
     reservation.setNational(request.getNational());
+
+    // Actualiza depósito y precio
     reservation.setDeposit(request.getDeposit());
     reservation.setSurgeryPrice(request.getSurgeryPrice());
+
+    // Recalcula dinero restante e indicador de pago completo
+    BigDecimal remaining = reservation.getSurgeryPrice()
+            .subtract(reservation.getDeposit());
+    reservation.setRemainingMoney(remaining);
+    reservation.setIsPaid(remaining.compareTo(BigDecimal.ZERO) <= 0);
+
     reservation.setIsVisible(request.getIsVisible());
 
+    // Persiste los cambios
     reservationRepository.save(reservation);
 
-    SurgeryReservationResponse response = new SurgeryReservationResponse();
-    response.setId(reservation.getIdSurgeryReservation());
-    response.setDescription(reservation.getDescription());
-    response.setFollicularUnits(reservation.getFollicularUnits());
-    response.setSurgicalTechnique(reservation.getSurgicalTechnique());
-    response.setEstimatedDate(reservation.getEstimatedDate());
-    response.setNational(reservation.getNational());
-    response.setDeposit(reservation.getDeposit());
-    response.setSurgeryPrice(reservation.getSurgeryPrice());
-    response.setIsVisible(reservation.getIsVisible());
+    // Mapea la respuesta
+    SurgeryReservationResponse dto = new SurgeryReservationResponse();
+    dto.setIdSurgeryReservation(reservation.getIdSurgeryReservation());
+    dto.setDescription(reservation.getDescription());
+    dto.setFollicularUnits(reservation.getFollicularUnits());
+    dto.setSurgicalTechnique(reservation.getSurgicalTechnique());
+    dto.setEstimatedDate(reservation.getEstimatedDate());
+    dto.setNational(reservation.getNational());
+    dto.setDeposit(reservation.getDeposit());
+    dto.setSurgeryPrice(reservation.getSurgeryPrice());
+    dto.setIsVisible(reservation.getIsVisible());
 
+    // Datos del paciente/contacto
     if (reservation.getPatient() != null) {
-      response.setIdPatient(reservation.getPatient().getIdPatient());
-
+      dto.setIdPatient(reservation.getPatient().getIdPatient());
       if (reservation.getPatient().getContact() != null) {
         var contact = reservation.getPatient().getContact();
-        response.setContactFullName(contact.getName() + " " + contact.getSurname());
+        dto.setContactFullName(contact.getName() + " " + contact.getSurname());
       }
     }
 
-    return response;
+    dto.setConfirmed(reservation.getConfirmed());
+    // ← Nuevos campos
+    dto.setRemainingMoney(reservation.getRemainingMoney());
+    dto.setIsPaid(reservation.getIsPaid());
+
+    return dto;
   }
 }

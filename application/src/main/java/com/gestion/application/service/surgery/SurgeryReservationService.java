@@ -1,12 +1,13 @@
 package com.gestion.application.service.surgery;
 
-import com.gestion.application.dto.CreateSurgeryRequest;
 import com.gestion.application.dto.CreateSurgeryReservationRequest;
+import com.gestion.application.dto.CreateSurgeryRequest;
 import com.gestion.application.dto.SurgeryReservationResponse;
 import com.gestion.application.dto.UpdateSurgeryReservationRequest;
 import com.gestion.application.model.Surgery;
 import com.gestion.application.model.SurgeryReservation;
 import com.gestion.application.service.surgery.impl.*;
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,12 +27,21 @@ public class SurgeryReservationService {
   private final UpdateSurgeryReservationImpl updateSurgeryReservation;
   private final GetAllHiddenReservationsImpl getAllHiddenReservations;
   private final HideSurgeryReservationImpl hideImpl;
+  private final GetVisibleSurgeryReservationsImpl visibleReservationsImpl;
+
+  // ← Nueva dependencia
+  private final AddPaymentToReservationImpl addPaymentImpl;
 
   public SurgeryReservation createReservation(CreateSurgeryReservationRequest request) {
     return createSurgeryReservation.create(request);
   }
 
   public Page<SurgeryReservationResponse> getAllReservations(Pageable pageable) {
+    return getAllReservations.getAllVisible(pageable);
+  }
+
+  /** Nuevo método: listamos explícitamente sólo las visibles */
+  public Page<SurgeryReservationResponse> getVisibleReservations(Pageable pageable) {
     return getAllReservations.getAllVisible(pageable);
   }
 
@@ -49,7 +59,7 @@ public class SurgeryReservationService {
 
   public Surgery createSurgery(CreateSurgeryRequest request) {
     return createSurgery.createSurgery(
-        request.getReservationId(), request.getDate(), request.getObservations());
+            request.getReservationId(), request.getDate(), request.getObservations());
   }
 
   public Surgery createStandaloneSurgery(CreateSurgeryRequest request) {
@@ -57,11 +67,24 @@ public class SurgeryReservationService {
   }
 
   public SurgeryReservationResponse updateReservation(
-      Integer id, UpdateSurgeryReservationRequest request) {
+          Integer id, UpdateSurgeryReservationRequest request) {
     return updateSurgeryReservation.update(id, request);
   }
 
   public void hideReservation(Integer id) {
     hideImpl.hide(id);
   }
+
+  /**
+   * Nuevo método: suma un pago parcial a la reserva.
+   * Devuelve la entidad guardada (para luego mapear en el controlador).
+   */
+  public SurgeryReservation addPayment(Integer id, BigDecimal amount) {
+    return addPaymentImpl.addPayment(id, amount);
+  }
+
+  public Page<SurgeryReservationResponse> getOnlyVisibleReservations(Pageable pageable) {
+    return visibleReservationsImpl.getVisible(pageable);
+  }
+
 }

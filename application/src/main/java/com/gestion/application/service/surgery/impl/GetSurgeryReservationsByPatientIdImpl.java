@@ -5,9 +5,10 @@ import com.gestion.application.exception.PatientNotFoundException;
 import com.gestion.application.model.SurgeryReservation;
 import com.gestion.application.repository.PatientRepository;
 import com.gestion.application.repository.SurgeryReservationRepository;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -22,13 +23,13 @@ public class GetSurgeryReservationsByPatientIdImpl {
     }
 
     return reservationRepository.findByPatient_IdPatient(idPatient).stream()
-        .map(this::mapToResponse)
-        .toList();
+            .map(this::mapToResponse)
+            .toList();
   }
 
   private SurgeryReservationResponse mapToResponse(SurgeryReservation reservation) {
     SurgeryReservationResponse dto = new SurgeryReservationResponse();
-    dto.setId(reservation.getIdSurgeryReservation());
+    dto.setIdSurgeryReservation(reservation.getIdSurgeryReservation());
     dto.setDescription(reservation.getDescription());
     dto.setFollicularUnits(reservation.getFollicularUnits());
     dto.setSurgicalTechnique(reservation.getSurgicalTechnique());
@@ -41,10 +42,15 @@ public class GetSurgeryReservationsByPatientIdImpl {
     dto.setIdPatient(reservation.getPatient().getIdPatient());
     dto.setIdContact(reservation.getPatient().getContact().getIdContact());
     dto.setContactFullName(
-        reservation.getPatient().getContact().getName()
-            + " "
-            + reservation.getPatient().getContact().getSurname());
+            reservation.getPatient().getContact().getName()
+                    + " "
+                    + reservation.getPatient().getContact().getSurname());
+
     dto.setConfirmed(reservation.getConfirmed());
+
+    // Nuevos campos
+    dto.setRemainingMoney(reservation.getRemainingMoney());
+    dto.setIsPaid(reservation.getIsPaid());
 
     return dto;
   }

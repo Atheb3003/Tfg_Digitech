@@ -107,4 +107,10 @@ public class TransactionController {
     Page<TransactionResponse> page = service.searchTransactions(search, pageable);
     return ResponseEntity.ok(new ApiResponse<>("success", page));
   }
+
+  @GetMapping("/info/{id}")
+  public ResponseEntity<ApiResponse<TransactionResponse>> getTransactionInfo(@PathVariable Integer id) {
+    TransactionResponse dto = service.getTransactionInfo(id);
+    return ResponseEntity.ok(new ApiResponse<>("success", dto));
+  }
 }

@@ -13,9 +13,7 @@ public class HideSurgeryReservationImpl {
   private final SurgeryReservationRepository reservationRepository;
 
   public void hide(Integer id) {
-    SurgeryReservation reservation =
-        reservationRepository
-            .findById(id)
+    SurgeryReservation reservation = reservationRepository.findById(id)
             .orElseThrow(() -> new SurgeryReservationNotFoundException(id));
 
     reservation.setIsVisible(false);

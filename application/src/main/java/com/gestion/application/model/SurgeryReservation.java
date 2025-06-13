@@ -22,8 +22,11 @@ public class SurgeryReservation {
   private String surgicalTechnique;
   private LocalDate estimatedDate;
   private Boolean national; // si es nacional o internacional
-  private BigDecimal deposit; //
-  // crear otro que sea DineroRestante
+  private BigDecimal deposit; // aquí cada vez que se haga un pago, se irá sumando aquí
+
+  @Column(name = "money_remaining")
+  private BigDecimal remainingMoney; // diferencia entre precio de la cirugía y depósito
+
   private BigDecimal surgeryPrice;
   private Boolean isVisible;
 
@@ -37,4 +40,7 @@ public class SurgeryReservation {
 
   @Column(nullable = false)
   private Boolean confirmed = false;
+
+  @Column(name = "is_paid", nullable = false)
+  private Boolean isPaid = false; // cuando se haya pagado toda la cirugía, se pondrá en true
 }

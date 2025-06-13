@@ -46,7 +46,7 @@ public class SecurityConfig {
             auth ->
                 auth
                     // Endpoints públicos
-                    .requestMatchers("/login", "/h2-console/**", "/api/auth/**")
+                    .requestMatchers("/login", "/api/auth/**")
                     .permitAll()
                     .requestMatchers(HttpMethod.POST, "/users")
                     .permitAll()
@@ -107,6 +107,12 @@ public class SecurityConfig {
                     .hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/revisions/*")
                     .hasRole("ADMIN")
+
+
+                    .requestMatchers(HttpMethod.GET, "/surgery-reservations/*")
+                    .hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/surgery-reservations/**")
+                        .hasRole("ADMIN")
 
                     // Cualquier otra petición requiere autenticación
                     .anyRequest()

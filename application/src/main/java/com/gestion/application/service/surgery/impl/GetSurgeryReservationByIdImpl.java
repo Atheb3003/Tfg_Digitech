@@ -14,19 +14,17 @@ public class GetSurgeryReservationByIdImpl {
   private final SurgeryReservationRepository reservationRepository;
 
   public SurgeryReservationResponse getById(Integer id) {
-    SurgeryReservation reservation =
-        reservationRepository
-            .findById(id)
+    SurgeryReservation reservation = reservationRepository.findById(id)
             .orElseThrow(() -> new SurgeryReservationNotFoundException(id));
 
     SurgeryReservationResponse dto = new SurgeryReservationResponse();
-    dto.setId(reservation.getIdSurgeryReservation());
+    dto.setIdSurgeryReservation(reservation.getIdSurgeryReservation());
     dto.setIdPatient(reservation.getPatient().getIdPatient());
     dto.setIdContact(reservation.getPatient().getContact().getIdContact());
     dto.setContactFullName(
-        reservation.getPatient().getContact().getName()
-            + " "
-            + reservation.getPatient().getContact().getSurname());
+            reservation.getPatient().getContact().getName()
+                    + " "
+                    + reservation.getPatient().getContact().getSurname());
     dto.setDescription(reservation.getDescription());
     dto.setFollicularUnits(reservation.getFollicularUnits());
     dto.setSurgicalTechnique(reservation.getSurgicalTechnique());
@@ -36,6 +34,9 @@ public class GetSurgeryReservationByIdImpl {
     dto.setSurgeryPrice(reservation.getSurgeryPrice());
     dto.setIsVisible(reservation.getIsVisible());
     dto.setConfirmed(reservation.getConfirmed());
+    // Nuevos campos
+    dto.setRemainingMoney(reservation.getRemainingMoney());
+    dto.setIsPaid(reservation.getIsPaid());
 
     return dto;
   }

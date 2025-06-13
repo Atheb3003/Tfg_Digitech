@@ -8,6 +8,8 @@ import com.gestion.application.repository.SurgeryReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @RequiredArgsConstructor
 @Service
 public class CreateSurgeryReservationImpl {
@@ -16,9 +18,7 @@ public class CreateSurgeryReservationImpl {
   private final PatientRepository patientRepository;
 
   public SurgeryReservation create(CreateSurgeryReservationRequest request) {
-    var patient =
-        patientRepository
-            .findById(request.getIdPatient())
+    var patient = patientRepository.findById(request.getIdPatient())
             .orElseThrow(() -> new PatientNotFoundException(request.getIdPatient()));
 
     SurgeryReservation reservation = new SurgeryReservation();
@@ -30,6 +30,13 @@ public class CreateSurgeryReservationImpl {
     reservation.setNational(request.getNational());
     reservation.setDeposit(request.getDeposit());
     reservation.setSurgeryPrice(request.getSurgeryPrice());
+
+    // Cálculo de dinero restante e indicador de pago completo
+    BigDecimal remaining = reservation.getSurgeryPrice()
+            .subtract(reservation.getDeposit());
+    reservation.setRemainingMoney(remaining);
+    reservation.setIsPaid(remaining.compareTo(BigDecimal.ZERO) <= 0);
+
     reservation.setIsVisible(request.getIsVisible());
 
     return surgeryReservationRepository.save(reservation);
