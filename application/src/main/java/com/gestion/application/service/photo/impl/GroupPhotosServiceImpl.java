@@ -109,7 +109,7 @@ public class GroupPhotosServiceImpl {
     response.setRevisionId(
         group.getRevision() != null ? group.getRevision().getIdRevision() : null);
 
-    String baseUrl = "http://localhost:8080/";
+    String baseUrl = "https://tfgclinica.duckdns.org/";
     List<String> photoUrls =
         group.getPhotos().stream().map(photo -> baseUrl + photo.getFileRoute()).toList();
     response.setPhotos(photoUrls);
@@ -124,7 +124,7 @@ public class GroupPhotosServiceImpl {
     }
 
     List<GroupPhotos> groups = groupPhotosRepository.findByContact_IdContact(contactId);
-    String baseUrl = "http://localhost:8080/";
+    String baseUrl = "https://tfgclinica.duckdns.org/";
 
     return groups.stream()
         .map(

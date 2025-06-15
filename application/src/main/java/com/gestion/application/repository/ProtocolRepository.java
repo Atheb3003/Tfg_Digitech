@@ -1,6 +1,7 @@
 package com.gestion.application.repository;
 
 import com.gestion.application.model.Protocol;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable; // <-- ESTE ES EL CORRECTO
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,14 +10,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface ProtocolRepository extends JpaRepository<Protocol, Integer>, JpaSpecificationExecutor<Protocol> {
+public interface ProtocolRepository
+    extends JpaRepository<Protocol, Integer>, JpaSpecificationExecutor<Protocol> {
 
   List<Protocol> findAllByContact_IdContact(Integer contactId);
 
-  @Query("""
+  @Query(
+      """
     SELECT DISTINCT p FROM Protocol p
     LEFT JOIN p.contact c
     LEFT JOIN p.treatments t
@@ -24,7 +25,7 @@ public interface ProtocolRepository extends JpaRepository<Protocol, Integer>, Jp
     LEFT JOIN c.patient patient
     WHERE c.isVisible = true
     AND (
-        :search IS NULL OR :search = '' 
+        :search IS NULL OR :search = ''
         OR CAST(patient.id AS string) = :search
         OR LOWER(c.idContactString) = LOWER(:search)
         OR CAST(p.price AS string) = :search
@@ -34,5 +35,4 @@ public interface ProtocolRepository extends JpaRepository<Protocol, Integer>, Jp
     )
     """)
   Page<Protocol> searchProtocols(@Param("search") String search, Pageable pageable);
-
 }

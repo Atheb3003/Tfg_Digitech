@@ -6,11 +6,11 @@ import lombok.Data;
 
 @Data
 public class SoldItemResponse {
-    private String type;
-    private String name;
-    private Integer transactionId;
-    private PaymentMethod paymentMethod;
-    private Double amount;
-    private String idContactString;
-    private LocalDate transactionDate;
+  private String type;
+  private String name;
+  private Integer transactionId;
+  private PaymentMethod paymentMethod;
+  private Double amount;
+  private String idContactString;
+  private LocalDate transactionDate;
 }

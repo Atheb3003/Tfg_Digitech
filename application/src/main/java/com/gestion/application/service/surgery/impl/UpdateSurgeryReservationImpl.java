@@ -5,10 +5,9 @@ import com.gestion.application.dto.UpdateSurgeryReservationRequest;
 import com.gestion.application.exception.SurgeryReservationNotFoundException;
 import com.gestion.application.model.SurgeryReservation;
 import com.gestion.application.repository.SurgeryReservationRepository;
+import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @RequiredArgsConstructor
 @Service
@@ -17,7 +16,9 @@ public class UpdateSurgeryReservationImpl {
   private final SurgeryReservationRepository reservationRepository;
 
   public SurgeryReservationResponse update(Integer id, UpdateSurgeryReservationRequest request) {
-    SurgeryReservation reservation = reservationRepository.findById(id)
+    SurgeryReservation reservation =
+        reservationRepository
+            .findById(id)
             .orElseThrow(() -> new SurgeryReservationNotFoundException(id));
 
     // Actualiza los campos básicos
@@ -32,8 +33,7 @@ public class UpdateSurgeryReservationImpl {
     reservation.setSurgeryPrice(request.getSurgeryPrice());
 
     // Recalcula dinero restante e indicador de pago completo
-    BigDecimal remaining = reservation.getSurgeryPrice()
-            .subtract(reservation.getDeposit());
+    BigDecimal remaining = reservation.getSurgeryPrice().subtract(reservation.getDeposit());
     reservation.setRemainingMoney(remaining);
     reservation.setIsPaid(remaining.compareTo(BigDecimal.ZERO) <= 0);
 

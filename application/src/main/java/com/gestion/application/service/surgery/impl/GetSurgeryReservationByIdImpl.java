@@ -14,7 +14,9 @@ public class GetSurgeryReservationByIdImpl {
   private final SurgeryReservationRepository reservationRepository;
 
   public SurgeryReservationResponse getById(Integer id) {
-    SurgeryReservation reservation = reservationRepository.findById(id)
+    SurgeryReservation reservation =
+        reservationRepository
+            .findById(id)
             .orElseThrow(() -> new SurgeryReservationNotFoundException(id));
 
     SurgeryReservationResponse dto = new SurgeryReservationResponse();
@@ -22,9 +24,9 @@ public class GetSurgeryReservationByIdImpl {
     dto.setIdPatient(reservation.getPatient().getIdPatient());
     dto.setIdContact(reservation.getPatient().getContact().getIdContact());
     dto.setContactFullName(
-            reservation.getPatient().getContact().getName()
-                    + " "
-                    + reservation.getPatient().getContact().getSurname());
+        reservation.getPatient().getContact().getName()
+            + " "
+            + reservation.getPatient().getContact().getSurname());
     dto.setDescription(reservation.getDescription());
     dto.setFollicularUnits(reservation.getFollicularUnits());
     dto.setSurgicalTechnique(reservation.getSurgicalTechnique());

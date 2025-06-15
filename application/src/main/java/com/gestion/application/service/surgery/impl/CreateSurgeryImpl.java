@@ -4,10 +4,9 @@ import com.gestion.application.exception.SurgeryReservationNotFoundException;
 import com.gestion.application.model.Surgery;
 import com.gestion.application.repository.SurgeryRepository;
 import com.gestion.application.repository.SurgeryReservationRepository;
+import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Service

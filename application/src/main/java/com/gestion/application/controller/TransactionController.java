@@ -109,7 +109,8 @@ public class TransactionController {
   }
 
   @GetMapping("/info/{id}")
-  public ResponseEntity<ApiResponse<TransactionResponse>> getTransactionInfo(@PathVariable Integer id) {
+  public ResponseEntity<ApiResponse<TransactionResponse>> getTransactionInfo(
+      @PathVariable Integer id) {
     TransactionResponse dto = service.getTransactionInfo(id);
     return ResponseEntity.ok(new ApiResponse<>("success", dto));
   }

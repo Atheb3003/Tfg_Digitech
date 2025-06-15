@@ -14,45 +14,40 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SearchSurgeriesImpl {
 
-    private final SurgeryRepository surgeryRepository;
+  private final SurgeryRepository surgeryRepository;
 
-    public Page<FullDetailSurgeryResponse> searchVisibleSurgeries(
-            String search,
-            Pageable pageable
-    ) {
-        return surgeryRepository
-                .searchVisibleSurgeries(search, pageable)
-                .map(this::toFullDetail);
-    }
+  public Page<FullDetailSurgeryResponse> searchVisibleSurgeries(String search, Pageable pageable) {
+    return surgeryRepository.searchVisibleSurgeries(search, pageable).map(this::toFullDetail);
+  }
 
-    private FullDetailSurgeryResponse toFullDetail(Surgery s) {
-        FullDetailSurgeryResponse dto = new FullDetailSurgeryResponse();
-        dto.setIdSurgery(s.getIdSurgery());
-        dto.setDate(s.getDate());
-        dto.setObservations(s.getObservations());
-        dto.setIsVisible(s.getIsVisible());
+  private FullDetailSurgeryResponse toFullDetail(Surgery s) {
+    FullDetailSurgeryResponse dto = new FullDetailSurgeryResponse();
+    dto.setIdSurgery(s.getIdSurgery());
+    dto.setDate(s.getDate());
+    dto.setObservations(s.getObservations());
+    dto.setIsVisible(s.getIsVisible());
 
-        SurgeryReservation r = s.getSurgeryReservation();
-        if (r != null) {
-            dto.setIdReservation(r.getIdSurgeryReservation());
-            dto.setFollicularUnits(r.getFollicularUnits());
-            dto.setSurgicalTechnique(r.getSurgicalTechnique());
-            dto.setNational(r.getNational());
-            dto.setDeposit(r.getDeposit());
-            dto.setSurgeryPrice(r.getSurgeryPrice());
-            dto.setRemainingMoney(r.getRemainingMoney());
+    SurgeryReservation r = s.getSurgeryReservation();
+    if (r != null) {
+      dto.setIdReservation(r.getIdSurgeryReservation());
+      dto.setFollicularUnits(r.getFollicularUnits());
+      dto.setSurgicalTechnique(r.getSurgicalTechnique());
+      dto.setNational(r.getNational());
+      dto.setDeposit(r.getDeposit());
+      dto.setSurgeryPrice(r.getSurgeryPrice());
+      dto.setRemainingMoney(r.getRemainingMoney());
 
-            if (r.getPatient() != null) {
-                dto.setIdPatient(r.getPatient().getIdPatient());
-                Contact c = r.getPatient().getContact();
-                if (c != null) {
-                    dto.setIdContact(c.getIdContact());
-                    dto.setIdContactString(c.getIdContactString());
-                    dto.setContactFullName(c.getName() + " " + c.getSurname());
-                }
-            }
+      if (r.getPatient() != null) {
+        dto.setIdPatient(r.getPatient().getIdPatient());
+        Contact c = r.getPatient().getContact();
+        if (c != null) {
+          dto.setIdContact(c.getIdContact());
+          dto.setIdContactString(c.getIdContactString());
+          dto.setContactFullName(c.getName() + " " + c.getSurname());
         }
-
-        return dto;
+      }
     }
+
+    return dto;
+  }
 }

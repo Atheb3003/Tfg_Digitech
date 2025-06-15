@@ -1,9 +1,7 @@
 package com.gestion.application.model;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data

@@ -18,7 +18,6 @@ public class ProtocolTreatmentController {
   private final AddTreatmentToProtocolService addTreatmentToProtocolService;
   private final MarkProtocolTreatmentAsFinishedImpl markProtocolTreatmentAsFinished;
 
-
   /** PUT /protocol-treatments/{id}/paid */
   @PutMapping("/{id}/paid")
   public ResponseEntity<SuccessfulMarkAsPaidResponse> markAsPaid(@PathVariable Integer id) {
@@ -38,5 +37,4 @@ public class ProtocolTreatmentController {
     SuccessfulMarkAsPaidResponse response = markProtocolTreatmentAsFinished.markAsFinished(id);
     return ResponseEntity.ok(response);
   }
-
 }

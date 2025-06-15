@@ -1,9 +1,7 @@
 package com.gestion.application.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.Data;
 
 /** DTO de respuesta para la entidad Consultation */

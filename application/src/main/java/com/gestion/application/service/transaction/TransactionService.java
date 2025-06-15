@@ -34,7 +34,6 @@ public class TransactionService {
   private final ContactRepository contactRepository;
   private final GetTransactionInfoImpl getTransactionInfoImpl;
 
-
   /** POST /transactions */
   public TransactionResponse createTransaction(TransactionRequest req) {
     return createImpl.create(req);

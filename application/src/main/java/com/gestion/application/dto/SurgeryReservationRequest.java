@@ -9,33 +9,33 @@ import lombok.Data;
 @Data
 public class SurgeryReservationRequest {
 
-    @JsonProperty("description")
-    private String description;
+  @JsonProperty("description")
+  private String description;
 
-    @JsonProperty("follicular_units")
-    private Integer follicularUnits;
+  @JsonProperty("follicular_units")
+  private Integer follicularUnits;
 
-    @JsonProperty("surgical_technique")
-    private String surgicalTechnique;
+  @JsonProperty("surgical_technique")
+  private String surgicalTechnique;
 
-    @JsonProperty("estimated_date")
-    private LocalDate estimatedDate;
+  @JsonProperty("estimated_date")
+  private LocalDate estimatedDate;
 
-    @JsonProperty("national")
-    private Boolean national;
+  @JsonProperty("national")
+  private Boolean national;
 
-    @JsonProperty("deposit")
-    private BigDecimal deposit;
+  @JsonProperty("deposit")
+  private BigDecimal deposit;
 
-    @JsonProperty("surgery_price")
-    private BigDecimal surgeryPrice;
+  @JsonProperty("surgery_price")
+  private BigDecimal surgeryPrice;
 
-    @JsonProperty("is_visible")
-    private Boolean isVisible;
+  @JsonProperty("is_visible")
+  private Boolean isVisible;
 
-    @JsonProperty("confirmed")
-    private Boolean confirmed;
+  @JsonProperty("confirmed")
+  private Boolean confirmed;
 
-    @JsonProperty("id_patient")
-    private Integer patientId;
+  @JsonProperty("id_patient")
+  private Integer patientId;
 }

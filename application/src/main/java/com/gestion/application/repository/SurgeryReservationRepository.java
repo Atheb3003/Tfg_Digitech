@@ -1,6 +1,5 @@
 package com.gestion.application.repository;
 
-import com.gestion.application.dto.SurgeryReservationResponse;
 import com.gestion.application.model.SurgeryReservation;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -13,11 +12,14 @@ public interface SurgeryReservationRepository extends JpaRepository<SurgeryReser
 
   List<SurgeryReservation> findByPatient_IdPatient(Integer idPatient);
 
-  Page<SurgeryReservation>   findAllByIsVisibleTrue(Pageable pageable);
-  Page<SurgeryReservation>   findAllByIsVisibleFalse(Pageable pageable);
-  Page<SurgeryReservation>   findAllByIsVisibleTrueAndConfirmedFalse(Pageable pageable);
+  Page<SurgeryReservation> findAllByIsVisibleTrue(Pageable pageable);
 
-  @Query("""
+  Page<SurgeryReservation> findAllByIsVisibleFalse(Pageable pageable);
+
+  Page<SurgeryReservation> findAllByIsVisibleTrueAndConfirmedFalse(Pageable pageable);
+
+  @Query(
+      """
     SELECT DISTINCT r
     FROM SurgeryReservation r
     JOIN r.patient p
@@ -31,8 +33,5 @@ public interface SurgeryReservationRepository extends JpaRepository<SurgeryReser
       )
   """)
   Page<SurgeryReservation> searchVisibleReservations(
-          @Param("search") String search,
-          Pageable pageable
-  );
-
+      @Param("search") String search, Pageable pageable);
 }

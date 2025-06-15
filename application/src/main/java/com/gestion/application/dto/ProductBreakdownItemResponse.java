@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class ProductBreakdownItemResponse {
-    private String type;
-    private String name;
-    private Integer quantity;
-    private String income;
+  private String type;
+  private String name;
+  private Integer quantity;
+  private String income;
 }

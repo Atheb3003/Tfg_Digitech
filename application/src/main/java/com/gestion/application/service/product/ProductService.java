@@ -28,7 +28,7 @@ public class ProductService {
   private final DeleteProductImpl deleteImpl;
   private final ToggleProductVisibilityImpl toggleImpl;
 
-  // Nuevo: impl que ofrece paginación
+  //impl que ofrece paginación
   private final GetVisibleProductsPageImpl visiblePageImpl;
 
   public ProductResponse createProduct(ProductRequest req) {

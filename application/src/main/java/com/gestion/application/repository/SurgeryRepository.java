@@ -9,9 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface SurgeryRepository extends JpaRepository<Surgery, Integer> {
-    Page<Surgery> findAllByIsVisibleTrue(Pageable pageable);
+  Page<Surgery> findAllByIsVisibleTrue(Pageable pageable);
 
-    @Query("""
+  @Query(
+      """
       SELECT DISTINCT s
       FROM Surgery s
       JOIN s.surgeryReservation r
@@ -27,8 +28,5 @@ public interface SurgeryRepository extends JpaRepository<Surgery, Integer> {
           CAST(r.surgeryPrice        AS string)   LIKE CONCAT('%', :search, '%')
         )
     """)
-    Page<Surgery> searchVisibleSurgeries(
-            @Param("search")   String search,
-            Pageable pageable
-    );
+  Page<Surgery> searchVisibleSurgeries(@Param("search") String search, Pageable pageable);
 }

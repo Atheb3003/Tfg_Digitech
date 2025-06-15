@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MarkProtocolTreatmentAsFinishedImpl {
 
-    private final ProtocolTreatmentRepository repository;
+  private final ProtocolTreatmentRepository repository;
 
-    public SuccessfulMarkAsPaidResponse markAsFinished(Integer id) {
-        ProtocolTreatment treatment =
-                repository.findById(id).orElseThrow(() -> new ProtocolTreatmentNotFoundException(id));
+  public SuccessfulMarkAsPaidResponse markAsFinished(Integer id) {
+    ProtocolTreatment treatment =
+        repository.findById(id).orElseThrow(() -> new ProtocolTreatmentNotFoundException(id));
 
-        treatment.setIsFinished(true);
-        repository.save(treatment);
+    treatment.setIsFinished(true);
+    repository.save(treatment);
 
-        return new SuccessfulMarkAsPaidResponse(
-                "success", "Tratamiento con ID " + id + " marcado como realizado");
-    }
+    return new SuccessfulMarkAsPaidResponse(
+        "success", "Tratamiento con ID " + id + " marcado como realizado");
+  }
 }

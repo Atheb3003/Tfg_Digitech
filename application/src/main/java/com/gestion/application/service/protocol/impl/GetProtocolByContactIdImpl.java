@@ -5,7 +5,6 @@ import com.gestion.application.dto.ProtocolTreatmentResponse;
 import com.gestion.application.exception.ProtocolNotFoundException;
 import com.gestion.application.model.Protocol;
 import com.gestion.application.repository.ProtocolRepository;
-import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,10 +33,10 @@ public class GetProtocolByContactIdImpl {
                                   t.getId(),
                                   t.getProduct().getIdProduct(),
                                   t.getProduct().getName(),
-                                      t.getPrice(),
+                                  t.getPrice(),
                                   t.getIsPaid(),
                                   t.getIsFinished(),
-                                      t.getDetail()))
+                                  t.getDetail()))
                       .toList();
 
               ProtocolResponse response = new ProtocolResponse();

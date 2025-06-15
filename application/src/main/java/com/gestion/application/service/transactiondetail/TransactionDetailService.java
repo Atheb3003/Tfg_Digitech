@@ -2,10 +2,8 @@ package com.gestion.application.service.transactiondetail;
 
 import com.gestion.application.dto.*;
 import com.gestion.application.mapper.TransactionDetailMapper;
-import com.gestion.application.model.PaymentMethod;
 import com.gestion.application.model.TransactionDetail;
 import com.gestion.application.service.transactiondetail.impl.*;
-
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -32,10 +30,6 @@ public class TransactionDetailService {
   private final GetTypeBreakdownImpl getTypeBreakdownImpl;
   private final SearchVisibleSoldItemsImpl searchVisibleSoldItemsImpl;
   private final GetTransactionDetailInfoImpl getTransactionDetailInfoImpl;
-
-
-
-
 
   public TransactionDetailResponse createDetail(TransactionDetailRequest req) {
     return createImpl.create(req);
@@ -75,7 +69,8 @@ public class TransactionDetailService {
     return getTotalIncomeImpl.getTotalIncome(startDate, endDate);
   }
 
-  public IncomeByPaymentMethodResponse getIncomeByPaymentMethod(LocalDate startDate, LocalDate endDate) {
+  public IncomeByPaymentMethodResponse getIncomeByPaymentMethod(
+      LocalDate startDate, LocalDate endDate) {
     return getIncomeByPaymentMethodImpl.getIncomeByPaymentMethod(startDate, endDate);
   }
 
@@ -90,8 +85,8 @@ public class TransactionDetailService {
   public Page<SoldItemResponse> searchVisibleSoldItems(String term, Pageable pageable) {
     return searchVisibleSoldItemsImpl.searchVisibleSoldItems(term, pageable);
   }
+
   public TransactionDetailInfoResponse getTransactionDetailInfo(Integer id) {
     return getTransactionDetailInfoImpl.getDetailInfo(id);
   }
-
 }

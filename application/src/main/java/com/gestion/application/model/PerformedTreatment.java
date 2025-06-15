@@ -22,16 +22,12 @@ public class PerformedTreatment {
   @Column(name = "id_revision", nullable = true)
   private Integer revisionId;
 
-
   @Column(name = "id_protocol_treatment")
   private Integer protocolTreatmentId;
-
 
   private LocalDate performedDate; // Fecha en la que se realizó el tratamiento
   private Double finalPrice;
   private String notes;
 
   private LocalDate creationDate;
-
-
 }

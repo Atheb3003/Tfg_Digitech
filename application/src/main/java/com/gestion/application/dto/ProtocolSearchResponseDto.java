@@ -1,15 +1,15 @@
 package com.gestion.application.dto;
 
-import lombok.Data;
 import java.math.BigDecimal;
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class ProtocolSearchResponseDto {
-    private Integer protocolId;
-    private String protocolDescription;
-    private BigDecimal protocolTotalPrice;
-    private String contactIdString;
-    private Boolean finished;
-    private List<ProtocolSearchTreatmentDto> treatments;
+  private Integer protocolId;
+  private String protocolDescription;
+  private BigDecimal protocolTotalPrice;
+  private String contactIdString;
+  private Boolean finished;
+  private List<ProtocolSearchTreatmentDto> treatments;
 }

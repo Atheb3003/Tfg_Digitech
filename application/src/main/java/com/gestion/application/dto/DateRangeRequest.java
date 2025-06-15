@@ -1,10 +1,10 @@
 package com.gestion.application.dto;
 
-import lombok.Data;
 import java.time.LocalDate;
+import lombok.Data;
 
 @Data
 public class DateRangeRequest {
-    private LocalDate startDate;
-    private LocalDate endDate;
+  private LocalDate startDate;
+  private LocalDate endDate;
 }

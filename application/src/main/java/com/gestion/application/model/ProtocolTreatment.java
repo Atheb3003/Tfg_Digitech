@@ -1,9 +1,8 @@
 package com.gestion.application.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-
 import java.math.BigDecimal;
+import lombok.Data;
 
 @Entity
 @Table(name = "protocol_treatment")
